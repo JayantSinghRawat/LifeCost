@@ -1,0 +1,590 @@
+[
+  {
+    "From": "AIIMS",
+    "To": "Alkapuri",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "AIIMS",
+    "To": "DRM Office",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "AIIMS",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "AIIMS",
+    "To": "Board Office Chauraha",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "AIIMS",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~5.5 km",
+    "Est. Time": "~10 minutes",
+    "Stations": "5 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 5 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  },
+  {
+    "From": "AIIMS",
+    "To": "Subhash Nagar",
+    "Distance": "~6.6 km",
+    "Est. Time": "~12 minutes",
+    "Stations": "6 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹30",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 6 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "AIIMS",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "DRM Office",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "Board Office Chauraha",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  },
+  {
+    "From": "Alkapuri",
+    "To": "Subhash Nagar",
+    "Distance": "~5.5 km",
+    "Est. Time": "~10 minutes",
+    "Stations": "5 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 5 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "AIIMS",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "Alkapuri",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "Board Office Chauraha",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  },
+  {
+    "From": "DRM Office",
+    "To": "Subhash Nagar",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "AIIMS",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "Alkapuri",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "DRM Office",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "Board Office Chauraha",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  },
+  {
+    "From": "Rani Kamalapati (RKMP)",
+    "To": "Subhash Nagar",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "AIIMS",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "Alkapuri",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "DRM Office",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  },
+  {
+    "From": "Board Office Chauraha",
+    "To": "Subhash Nagar",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "AIIMS",
+    "Distance": "~5.5 km",
+    "Est. Time": "~10 minutes",
+    "Stations": "5 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 5 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "Alkapuri",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "DRM Office",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "Board Office Chauraha",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "Kendriya Vidyalaya",
+    "To": "Subhash Nagar",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards Subhash Nagar.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Subhash Nagar."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "AIIMS",
+    "Distance": "~6.6 km",
+    "Est. Time": "~12 minutes",
+    "Stations": "6 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹30",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 6 stops.",
+      "Alight at your destination, AIIMS."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "Alkapuri",
+    "Distance": "~5.5 km",
+    "Est. Time": "~10 minutes",
+    "Stations": "5 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 5 stops.",
+      "Alight at your destination, Alkapuri."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "DRM Office",
+    "Distance": "~4.4 km",
+    "Est. Time": "~8 minutes",
+    "Stations": "4 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹20",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 4 stops.",
+      "Alight at your destination, DRM Office."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "Rani Kamalapati (RKMP)",
+    "Distance": "~3.3 km",
+    "Est. Time": "~6 minutes",
+    "Stations": "3 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 3 stops.",
+      "Alight at your destination, Rani Kamalapati (RKMP)."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "Board Office Chauraha",
+    "Distance": "~2.2 km",
+    "Est. Time": "~4 minutes",
+    "Stations": "2 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 2 stops.",
+      "Alight at your destination, Board Office Chauraha."
+    ]
+  },
+  {
+    "From": "Subhash Nagar",
+    "To": "Kendriya Vidyalaya",
+    "Distance": "~1.1 km",
+    "Est. Time": "~2 minutes",
+    "Stations": "1 stops",
+    "Interchanges": "None",
+    "Est. Fare": "₹10",
+    "Route Steps": [
+      "Board the Orange Line train Towards AIIMS.",
+      "Stay on the train for 1 stops.",
+      "Alight at your destination, Kendriya Vidyalaya."
+    ]
+  }
+]
