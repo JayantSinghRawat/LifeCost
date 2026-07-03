@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_34262b765b658823cd8ce6b07cf708ce {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_34262b765b658823cd8ce6b07cf708ce" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_34262b765b658823cd8ce6b07cf708ce = L.map(
+                "map_34262b765b658823cd8ce6b07cf708ce",
+                {
+                    center: [23.2599, 77.4126],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_cc709b1fc592d06333ad169fac376533 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_cc709b1fc592d06333ad169fac376533.addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var marker_fe16bbf7c963e13452e73665d1abbbf3 = L.marker(
+                [23.234, 77.434],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_d4e12ff0f88960d0215988bed1a8ddc7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "briefcase",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_fe16bbf7c963e13452e73665d1abbbf3.bindTooltip(
+                `<div>
+                     MP NAGAR (Workplace + Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fe16bbf7c963e13452e73665d1abbbf3.setIcon(icon_d4e12ff0f88960d0215988bed1a8ddc7);
+            
+    
+            var marker_8c2d35005c3e76459e4188f880a2fbbd = L.marker(
+                [23.2175, 77.4409],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_00479a46700d5c5119b35da470de47fc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "briefcase",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_8c2d35005c3e76459e4188f880a2fbbd.bindTooltip(
+                `<div>
+                     ARERA COLONY (Workplace + Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8c2d35005c3e76459e4188f880a2fbbd.setIcon(icon_00479a46700d5c5119b35da470de47fc);
+            
+    
+            var marker_5f7917e865e549fcc1f043452c84a523 = L.marker(
+                [23.2656, 77.4724],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_2d08c27f6b0d3871b91b4e25ae1046f8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_5f7917e865e549fcc1f043452c84a523.bindTooltip(
+                `<div>
+                     🏢 GOVINDPURA (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5f7917e865e549fcc1f043452c84a523.setIcon(icon_2d08c27f6b0d3871b91b4e25ae1046f8);
+            
+    
+            var marker_bc06d56da1d799754b517f16e74b4632 = L.marker(
+                [23.2289, 77.4081],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_5bcd2454189df6a9939f4613e2a46d52 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_bc06d56da1d799754b517f16e74b4632.bindTooltip(
+                `<div>
+                     🏢 NEW MARKET (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bc06d56da1d799754b517f16e74b4632.setIcon(icon_5bcd2454189df6a9939f4613e2a46d52);
+            
+    
+            var marker_0280a8192e2f34d9537aaa8caa78d33d = L.marker(
+                [23.2291, 77.4357],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_d1bdb4d2fbacc0d329cc699588eaa899 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_0280a8192e2f34d9537aaa8caa78d33d.bindTooltip(
+                `<div>
+                     🏢 HABIBGANJ (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0280a8192e2f34d9537aaa8caa78d33d.setIcon(icon_d1bdb4d2fbacc0d329cc699588eaa899);
+            
+    
+            var marker_52c453fdf2c14bca86ffbe13717c1998 = L.marker(
+                [23.2677, 77.4118],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_22edc792e22916b25697bf61ebf2d885 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_52c453fdf2c14bca86ffbe13717c1998.bindTooltip(
+                `<div>
+                     🏢 BHOPAL RAILWAY (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_52c453fdf2c14bca86ffbe13717c1998.setIcon(icon_22edc792e22916b25697bf61ebf2d885);
+            
+    
+            var marker_f929a642f7e559a5b1752e6bf396a239 = L.marker(
+                [23.1705, 77.4536],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_c062c9f95cee421c1df1ef2dda0c10ad = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "briefcase",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_f929a642f7e559a5b1752e6bf396a239.bindTooltip(
+                `<div>
+                     KOLAR ROAD (Workplace + Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f929a642f7e559a5b1752e6bf396a239.setIcon(icon_c062c9f95cee421c1df1ef2dda0c10ad);
+            
+    
+            var marker_e2ceeb17f8fec997f9ced10cea5833af = L.marker(
+                [23.2789, 77.4033],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_19d0d07adadcbed5be180736d613a5c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e2ceeb17f8fec997f9ced10cea5833af.bindTooltip(
+                `<div>
+                     🏢 NISHATPURA (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e2ceeb17f8fec997f9ced10cea5833af.setIcon(icon_19d0d07adadcbed5be180736d613a5c1);
+            
+    
+            var marker_9910ed7619defdee3491260ed1cfb3d7 = L.marker(
+                [23.2954, 77.3672],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_7058c9b83946c9b57187e159e560b895 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_9910ed7619defdee3491260ed1cfb3d7.bindTooltip(
+                `<div>
+                     🏢 BAIRAGARH (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9910ed7619defdee3491260ed1cfb3d7.setIcon(icon_7058c9b83946c9b57187e159e560b895);
+            
+    
+            var marker_2d1fe77f68ee6b9270325bb78d3929e8 = L.marker(
+                [23.1056, 77.5321],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_1c24171d135c77da2412cdd50d8eefa6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_2d1fe77f68ee6b9270325bb78d3929e8.bindTooltip(
+                `<div>
+                     🏢 MANDIDEEP (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2d1fe77f68ee6b9270325bb78d3929e8.setIcon(icon_1c24171d135c77da2412cdd50d8eefa6);
+            
+    
+            var marker_dad8c2d53a08404dcb4a3daf663c31d4 = L.marker(
+                [23.6336, 77.4382],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_384f551b462b3cf5efb878a79ae52188 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_dad8c2d53a08404dcb4a3daf663c31d4.bindTooltip(
+                `<div>
+                     🏢 BERASIA (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dad8c2d53a08404dcb4a3daf663c31d4.setIcon(icon_384f551b462b3cf5efb878a79ae52188);
+            
+    
+            var marker_145dc8668d910552f6b8bc096c303001 = L.marker(
+                [23.2755, 77.3975],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_8ae12f7b8c982a068e2531fb92deb3a1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_145dc8668d910552f6b8bc096c303001.bindTooltip(
+                `<div>
+                     🏢 UNIVERSITY (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_145dc8668d910552f6b8bc096c303001.setIcon(icon_8ae12f7b8c982a068e2531fb92deb3a1);
+            
+    
+            var marker_721cf1a6c6d110400df7cdf78475e6ba = L.marker(
+                [23.1987, 77.531],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_13285638de51b169b4fd1c81f020563b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_721cf1a6c6d110400df7cdf78475e6ba.bindTooltip(
+                `<div>
+                     🏢 AIIMS BHOPAL (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_721cf1a6c6d110400df7cdf78475e6ba.setIcon(icon_13285638de51b169b4fd1c81f020563b);
+            
+    
+            var marker_e4037fe563cd341bad22468c0daeea9e = L.marker(
+                [23.189, 77.487],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_366c1668cd3db775fe212e5efda1a0d1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e4037fe563cd341bad22468c0daeea9e.bindTooltip(
+                `<div>
+                     🏢 IT PARK (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e4037fe563cd341bad22468c0daeea9e.setIcon(icon_366c1668cd3db775fe212e5efda1a0d1);
+            
+    
+            var marker_bbf73473878b71b49c2ca6f8df0959d6 = L.marker(
+                [23.271, 77.355],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_03a550f744372238f861d265700f0455 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_bbf73473878b71b49c2ca6f8df0959d6.bindTooltip(
+                `<div>
+                     🏢 BHEL (Workplace Hub)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bbf73473878b71b49c2ca6f8df0959d6.setIcon(icon_03a550f744372238f861d265700f0455);
+            
+    
+            var marker_948885165dd026687ff7b5fd8d7378e6 = L.marker(
+                [23.2544, 77.4698],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_786548ffcd614d3fb43da3714632fc82 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_948885165dd026687ff7b5fd8d7378e6.bindTooltip(
+                `<div>
+                     🏠 AYODHYA NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_948885165dd026687ff7b5fd8d7378e6.setIcon(icon_786548ffcd614d3fb43da3714632fc82);
+            
+    
+            var marker_53e9f3ec7b115626abc6fee8348ac345 = L.marker(
+                [23.2406, 77.4218],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_1a78b0a7af2c966595e2a190dbc5abfe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_53e9f3ec7b115626abc6fee8348ac345.bindTooltip(
+                `<div>
+                     🏠 ASHOKA GARDEN (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_53e9f3ec7b115626abc6fee8348ac345.setIcon(icon_1a78b0a7af2c966595e2a190dbc5abfe);
+            
+    
+            var marker_0ff74d03da7ea11dfb8cc1eda9a3c327 = L.marker(
+                [23.206, 77.4481],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_9216b0b676a0dc9a9a8210985c209520 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_0ff74d03da7ea11dfb8cc1eda9a3c327.bindTooltip(
+                `<div>
+                     🏠 ROHIT NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0ff74d03da7ea11dfb8cc1eda9a3c327.setIcon(icon_9216b0b676a0dc9a9a8210985c209520);
+            
+    
+            var marker_0847179d323e880f2e606d75b01f72bb = L.marker(
+                [23.277, 77.458],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_77b1ec182866017520b516c7ec64fcff = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_0847179d323e880f2e606d75b01f72bb.bindTooltip(
+                `<div>
+                     🏠 BHANPURA (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0847179d323e880f2e606d75b01f72bb.setIcon(icon_77b1ec182866017520b516c7ec64fcff);
+            
+    
+            var marker_374a0ad749df71c3fe2173908b8da6f8 = L.marker(
+                [23.2056, 77.427],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_8821d6b83a3cc573d29f3560661a1a1f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_374a0ad749df71c3fe2173908b8da6f8.bindTooltip(
+                `<div>
+                     🏠 AWADHPURI (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_374a0ad749df71c3fe2173908b8da6f8.setIcon(icon_8821d6b83a3cc573d29f3560661a1a1f);
+            
+    
+            var marker_5a16ee464965e6a96934481f34f79e8d = L.marker(
+                [23.2223, 77.4258],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_5077a0e7d32ad14ed5d2afa88f30bf77 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_5a16ee464965e6a96934481f34f79e8d.bindTooltip(
+                `<div>
+                     🏠 GULMOHAR COLONY (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5a16ee464965e6a96934481f34f79e8d.setIcon(icon_5077a0e7d32ad14ed5d2afa88f30bf77);
+            
+    
+            var marker_939925dd4b5d45f952a74333c5a24f9f = L.marker(
+                [23.2472, 77.4159],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_a150278be3780b02fb3ab9ceac5242d9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_939925dd4b5d45f952a74333c5a24f9f.bindTooltip(
+                `<div>
+                     🏠 INDRAPURI C SECTOR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_939925dd4b5d45f952a74333c5a24f9f.setIcon(icon_a150278be3780b02fb3ab9ceac5242d9);
+            
+    
+            var marker_aef4a9a3a4f6c335b72ce4235a69a697 = L.marker(
+                [23.1906, 77.4693],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_f560dd93f20c42e76c0414542d797ddc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_aef4a9a3a4f6c335b72ce4235a69a697.bindTooltip(
+                `<div>
+                     🏠 KAROD KALAN (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aef4a9a3a4f6c335b72ce4235a69a697.setIcon(icon_f560dd93f20c42e76c0414542d797ddc);
+            
+    
+            var marker_38c9f2ef0c577bdb6d95573fa71807e1 = L.marker(
+                [23.2042, 77.4386],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_c3dc50bbc1d947b5d22f34977a21889a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_38c9f2ef0c577bdb6d95573fa71807e1.bindTooltip(
+                `<div>
+                     🏠 SHAHPURA (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_38c9f2ef0c577bdb6d95573fa71807e1.setIcon(icon_c3dc50bbc1d947b5d22f34977a21889a);
+            
+    
+            var marker_1b305f3290caf6d2b7c5a90441a08e61 = L.marker(
+                [23.2089, 77.4494],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_3170f03536b376669a7d2a2b2b54baa6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_1b305f3290caf6d2b7c5a90441a08e61.bindTooltip(
+                `<div>
+                     🏠 KATARA HILLS (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1b305f3290caf6d2b7c5a90441a08e61.setIcon(icon_3170f03536b376669a7d2a2b2b54baa6);
+            
+    
+            var marker_7b532ca92810c6985e9619257c80a21a = L.marker(
+                [23.2534, 77.4325],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_426aa75f981c8ffd04e3d6bbcc83cebd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_7b532ca92810c6985e9619257c80a21a.bindTooltip(
+                `<div>
+                     🏠 NEW MINAL RESIDENCY (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7b532ca92810c6985e9619257c80a21a.setIcon(icon_426aa75f981c8ffd04e3d6bbcc83cebd);
+            
+    
+            var marker_db1f8ec5fccb70b7e7a992425d6956da = L.marker(
+                [23.2918, 77.4622],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_38f5eb5ed5f0ad05c523aa388a65a411 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_db1f8ec5fccb70b7e7a992425d6956da.bindTooltip(
+                `<div>
+                     🏠 KOKTA (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_db1f8ec5fccb70b7e7a992425d6956da.setIcon(icon_38f5eb5ed5f0ad05c523aa388a65a411);
+            
+    
+            var marker_8e99ae20cbf4273ed08c8589c47b96cc = L.marker(
+                [23.2265, 77.4562],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_c31bd30adb8b8a251d352e4ee39ede85 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_8e99ae20cbf4273ed08c8589c47b96cc.bindTooltip(
+                `<div>
+                     🏠 CHUNABHATTI (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8e99ae20cbf4273ed08c8589c47b96cc.setIcon(icon_c31bd30adb8b8a251d352e4ee39ede85);
+            
+    
+            var marker_6f8a140354eb11b72ab9b919d3f0166e = L.marker(
+                [23.204, 77.421],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_0449861fd4d6b9da253c4509258810db = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_6f8a140354eb11b72ab9b919d3f0166e.bindTooltip(
+                `<div>
+                     🏠 AAMAR ESTATE (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6f8a140354eb11b72ab9b919d3f0166e.setIcon(icon_0449861fd4d6b9da253c4509258810db);
+            
+    
+            var marker_618be4fc1f2bc07de1e6a22a3ef3c692 = L.marker(
+                [23.189, 77.487],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_8b0ae0d367d836bfccae33262fda8732 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_618be4fc1f2bc07de1e6a22a3ef3c692.bindTooltip(
+                `<div>
+                     🏠 AAKRITI ECOCITY (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_618be4fc1f2bc07de1e6a22a3ef3c692.setIcon(icon_8b0ae0d367d836bfccae33262fda8732);
+            
+    
+            var marker_f4e25da2a3dfc96dba847221d105d741 = L.marker(
+                [23.2045, 77.508],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_e2eab89baf2736e436e20d3b2afc0359 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_f4e25da2a3dfc96dba847221d105d741.bindTooltip(
+                `<div>
+                     🏠 MISROD (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f4e25da2a3dfc96dba847221d105d741.setIcon(icon_e2eab89baf2736e436e20d3b2afc0359);
+            
+    
+            var marker_a9697bdff09862ad24933985a1c3bb0d = L.marker(
+                [23.26, 77.391],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_8644620809eea271a8318989a8da5ad2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_a9697bdff09862ad24933985a1c3bb0d.bindTooltip(
+                `<div>
+                     🏠 RAJEEV NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a9697bdff09862ad24933985a1c3bb0d.setIcon(icon_8644620809eea271a8318989a8da5ad2);
+            
+    
+            var marker_68d1d425e65f18894b60d6c040ad514b = L.marker(
+                [23.243, 77.45],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_7621fd9432fddc440db64e5b1865a126 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_68d1d425e65f18894b60d6c040ad514b.bindTooltip(
+                `<div>
+                     🏠 SANJEEV NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_68d1d425e65f18894b60d6c040ad514b.setIcon(icon_7621fd9432fddc440db64e5b1865a126);
+            
+    
+            var marker_fb0051a2c76e0c723da0c76760fce3d2 = L.marker(
+                [23.239, 77.422],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_b8fd77b073726c95dd0ed66a14387773 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_fb0051a2c76e0c723da0c76760fce3d2.bindTooltip(
+                `<div>
+                     🏠 SAKET NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb0051a2c76e0c723da0c76760fce3d2.setIcon(icon_b8fd77b073726c95dd0ed66a14387773);
+            
+    
+            var marker_fb1dc3e00558032d75822147559e97c8 = L.marker(
+                [23.266, 77.446],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_0b2a18d34029eeb299c1d35dc4c70673 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_fb1dc3e00558032d75822147559e97c8.bindTooltip(
+                `<div>
+                     🏠 DANISH SQUARE (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb1dc3e00558032d75822147559e97c8.setIcon(icon_0b2a18d34029eeb299c1d35dc4c70673);
+            
+    
+            var marker_ee0d2184c8cb88b50f3110b089a458e6 = L.marker(
+                [23.241, 77.4196],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_4f2e2489d1e0ac59aa1774a1fe916f54 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_ee0d2184c8cb88b50f3110b089a458e6.bindTooltip(
+                `<div>
+                     🏠 INDRAPURI (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ee0d2184c8cb88b50f3110b089a458e6.setIcon(icon_4f2e2489d1e0ac59aa1774a1fe916f54);
+            
+    
+            var marker_4d9445cf4a68738bbcf208fef5b61b4c = L.marker(
+                [23.2305, 77.4145],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_42bc3dff187d1bfeaf9cf4428a48465b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_4d9445cf4a68738bbcf208fef5b61b4c.bindTooltip(
+                `<div>
+                     🏠 BAGH MUNGALIYA (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4d9445cf4a68738bbcf208fef5b61b4c.setIcon(icon_42bc3dff187d1bfeaf9cf4428a48465b);
+            
+    
+            var marker_bc130af02878107badf4a014f1793a6e = L.marker(
+                [23.259, 77.381],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_6dc5a2a7c02e2441091691e8f1727322 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_bc130af02878107badf4a014f1793a6e.bindTooltip(
+                `<div>
+                     🏠 BAWARIYA KALAN (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bc130af02878107badf4a014f1793a6e.setIcon(icon_6dc5a2a7c02e2441091691e8f1727322);
+            
+    
+            var marker_cba3c26e42408a6e0df5d218e792a636 = L.marker(
+                [23.2571, 77.4023],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_aceb64d194069c21525601807483d42f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_cba3c26e42408a6e0df5d218e792a636.bindTooltip(
+                `<div>
+                     🏠 NEHRU NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cba3c26e42408a6e0df5d218e792a636.setIcon(icon_aceb64d194069c21525601807483d42f);
+            
+    
+            var marker_737df53142abc10e8841ed407b6ff37b = L.marker(
+                [23.249, 77.4145],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_e1bcb5b249031e159bda7804f9ff572f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_737df53142abc10e8841ed407b6ff37b.bindTooltip(
+                `<div>
+                     🏠 OLD SUBHASH NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_737df53142abc10e8841ed407b6ff37b.setIcon(icon_e1bcb5b249031e159bda7804f9ff572f);
+            
+    
+            var marker_e4bd9b4c6a9c07978c8afe4423d73628 = L.marker(
+                [23.26, 77.474],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_2f7410e3ec7085a66d603f1c497988f1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e4bd9b4c6a9c07978c8afe4423d73628.bindTooltip(
+                `<div>
+                     🏠 AYODHYA NAGAR EXTENTION (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e4bd9b4c6a9c07978c8afe4423d73628.setIcon(icon_2f7410e3ec7085a66d603f1c497988f1);
+            
+    
+            var marker_2ba74fb750bfdaacb625863773eb9ab0 = L.marker(
+                [23.278, 77.489],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_cf0c3a6dca509ae87b3ee08855d0fb7d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_2ba74fb750bfdaacb625863773eb9ab0.bindTooltip(
+                `<div>
+                     🏠 BARKHERI (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2ba74fb750bfdaacb625863773eb9ab0.setIcon(icon_cf0c3a6dca509ae87b3ee08855d0fb7d);
+            
+    
+            var marker_ea0043dc0205232acfcf37288cf57c36 = L.marker(
+                [23.238, 77.407],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_ebe388f6586329ad8f1fcde02c2bff1c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_ea0043dc0205232acfcf37288cf57c36.bindTooltip(
+                `<div>
+                     🏠 NANBI BAGH (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ea0043dc0205232acfcf37288cf57c36.setIcon(icon_ebe388f6586329ad8f1fcde02c2bff1c);
+            
+    
+            var marker_33c5f5ab2e8354a38841d9636528defb = L.marker(
+                [23.251, 77.4565],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_7c776d9a1beab0d28d6196c493097b6b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_33c5f5ab2e8354a38841d9636528defb.bindTooltip(
+                `<div>
+                     🏠 PATEL NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_33c5f5ab2e8354a38841d9636528defb.setIcon(icon_7c776d9a1beab0d28d6196c493097b6b);
+            
+    
+            var marker_0ee985f934e4d2fc21dc131857ada12a = L.marker(
+                [23.195, 77.472],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_eb4137c00d5c1ec761c678c1d5f05007 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_0ee985f934e4d2fc21dc131857ada12a.bindTooltip(
+                `<div>
+                     🏠 RUCHI LIFE SCAPES (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0ee985f934e4d2fc21dc131857ada12a.setIcon(icon_eb4137c00d5c1ec761c678c1d5f05007);
+            
+    
+            var marker_915e1666384b44937b440127ed979966 = L.marker(
+                [23.2289, 77.4081],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_de4f3096605d1cd9e5e7da8eeb71ce58 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_915e1666384b44937b440127ed979966.bindTooltip(
+                `<div>
+                     🏠 NEW MARKET TT NAGAR (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_915e1666384b44937b440127ed979966.setIcon(icon_de4f3096605d1cd9e5e7da8eeb71ce58);
+            
+    
+            var marker_d686b862de9e0e8f7f7cb2b9491a2252 = L.marker(
+                [23.2126, 77.4612],
+                {
+}
+            ).addTo(map_34262b765b658823cd8ce6b07cf708ce);
+        
+    
+            var icon_2cf3e888697a0e2a8d5061518fdc5186 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_d686b862de9e0e8f7f7cb2b9491a2252.bindTooltip(
+                `<div>
+                     🏠 ISRO COLONY (Residential)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d686b862de9e0e8f7f7cb2b9491a2252.setIcon(icon_2cf3e888697a0e2a8d5061518fdc5186);
+            
+</script>
+</html>

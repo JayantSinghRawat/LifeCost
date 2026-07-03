@@ -1,0 +1,37 @@
+services:
+  # ── FastAPI ML backend ────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: mp_life_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000" # Direct API access (also available through frontend proxy)
+    volumes:
+      - model_cache:/app/ml/models # Persist trained models across restarts
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: [ "CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ── nginx + frontend SPA ────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: mp_life_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  model_cache:
+    driver: local

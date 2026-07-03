@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MP Life — Cost of Living Analytics, Madhya Pradesh</title>
+    <meta name="description"
+        content="AI-powered cost of living insights for Madhya Pradesh, India. Rent predictions, grocery costs, CPI inflation trends and metro fares for Bhopal and beyond." />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+    <!-- Leaflet Maps CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ── Design Tokens (Light Theme) ─────────────────────────────────────── */
+        :root {
+            --bg-base: #f4f6fb;
+            --bg-card: #ffffff;
+            --bg-card2: #f8faff;
+            --bg-input: #f0f3fa;
+            --border: rgba(59, 130, 246, 0.15);
+            --border-hover: rgba(59, 130, 246, 0.40);
+            --accent: #2563eb;
+            --accent2: #7c3aed;
+            --accent3: #0891b2;
+            --accent-grad: linear-gradient(135deg, #2563eb, #7c3aed);
+            --green: #059669;
+            --amber: #d97706;
+            --red: #dc2626;
+            --text-primary: #1a2233;
+            --text-sec: #4b5e7a;
+            --text-muted: #8fa3bf;
+            --shadow-card: 0 2px 20px rgba(59, 130, 246, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
+            --shadow-glow: 0 0 32px rgba(37, 99, 235, 0.10);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-main: 'Inter', sans-serif;
+            --font-head: 'Space Grotesk', sans-serif;
+        }
+
+        /* ── Reset ──────────────────────────────────────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Background grid (light theme) ───────────────────────────────── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+
+        /* ── Glowing orbs ─────────────────────────────────────────────────────── */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(37, 99, 235, 0.05);
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(124, 58, 237, 0.04);
+            bottom: 0;
+            right: -80px;
+        }
+
+        /* ── Layout wrapper ───────────────────────────────────────────────────── */
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Navbar (light) ─────────────────────────────────────────── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 12px rgba(37, 99, 235, 0.07);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-logo-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--accent-grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-sec);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: pulse-dot 2s infinite;
+        }
+
+        .status-dot.offline {
+            background: var(--red);
+            box-shadow: 0 0 8px var(--red);
+            animation: none;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            color: var(--text-sec);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color .2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        /* ── Hero ─────────────────────────────────────────────────────────────── */
+        .hero {
+            text-align: center;
+            padding: 72px 24px 56px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 999px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 24px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f0f6ff 0%, #a5c8ff 60%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-sec);
+            max-width: 560px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── Section titles ───────────────────────────────────────────────────── */
+        .section {
+            padding: 48px 0;
+        }
+
+        .section-header {
+            margin-bottom: 28px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            color: var(--text-sec);
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 6px;
+            padding: 2px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-left: 12px;
+            vertical-align: middle;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        /* ── Cards grid ───────────────────────────────────────────────────────── */
+        .cards-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            transition: border-color .25s, transform .25s, box-shadow .25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.03), transparent);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon.blue {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .card-icon.purple {
+            background: rgba(139, 92, 246, 0.15);
+        }
+
+        .card-icon.cyan {
+            background: rgba(6, 182, 212, 0.15);
+        }
+
+        .card-icon.green {
+            background: rgba(16, 185, 129, 0.15);
+        }
+
+        .card-icon.amber {
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .card-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .card-value {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .card-sub {
+            font-size: 0.82rem;
+            color: var(--text-sec);
+        }
+
+        .card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .badge-amber {
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-card2) 25%, var(--bg-input) 50%, var(--bg-card2) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+            height: 1.5em;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        /* ── Chart card ───────────────────────────────────────────────────────── */
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .chart-card h3 {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .chart-card p {
+            font-size: 0.82rem;
+            color: var(--text-sec);
+            margin-bottom: 24px;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 260px;
+        }
+
+        /* ── Charts two-col ───────────────────────────────────────────────────── */
+        .charts-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            margin-bottom: 20px;
+        }
+
+        /* ── Predict panel ────────────────────────────────────────────────────── */
+        .predict-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow-card);
+            display: grid;
+            gap: 28px;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media(max-width:760px) {
+            .predict-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .predict-form h3 {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-sec);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-main);
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+            appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all .2s;
+            font-family: var(--font-main);
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .btn-primary {
+            background: var(--accent-grad);
+            color: white;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .predict-result {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--bg-card2);
+            border-radius: var(--radius-sm);
+            padding: 32px;
+            border: 1px solid var(--border);
+            min-height: 260px;
+        }
+
+        .result-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .result-label {
+            font-size: 0.82rem;
+            color: var(--text-sec);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            font-weight: 500;
+        }
+
+        .result-amount {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .result-sub {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-sec);
+        }
+
+        .result-meta {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+        }
+
+        .result-row span:first-child {
+            color: var(--text-sec);
+        }
+
+        .result-row span:last-child {
+            font-weight: 600;
+        }
+
+        /* ── Metro calculator ─────────────────────────────────────────────────── */
+        .metro-calc {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            box-shadow: var(--shadow-card);
+        }
+
+        @media(max-width:600px) {
+            .metro-calc {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fare-display {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-card2);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .fare-amount {
+            font-family: var(--font-head);
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fare-rule {
+            font-size: 0.82rem;
+            color: var(--text-sec);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* ── Grocery table ────────────────────────────────────────────────────── */
+        .grocery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .grocery-item {
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .grocery-item:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .grocery-emoji {
+            font-size: 28px;
+        }
+
+        .grocery-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .grocery-qty {
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            margin: 2px 0;
+        }
+
+        .grocery-cost {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent3);
+        }
+
+        /* ── CoL Gauge ─────────────────────────────────────────────────────────── */
+        .gauge-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .gauge-title {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .gauge-sub {
+            font-size: 0.85rem;
+            color: var(--text-sec);
+            margin-bottom: 32px;
+        }
+
+        .gauge-number {
+            font-family: var(--font-head);
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .gauge-baseline {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 8px 0 24px;
+        }
+
+        .gauge-bar-wrap {
+            background: var(--bg-input);
+            border-radius: 999px;
+            height: 10px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .gauge-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            max-width: 100%;
+            background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+            transition: width 1s ease;
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            max-width: 480px;
+            margin: 8px auto 0;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .gauge-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+            text-align: left;
+        }
+
+        .breakdown-item {
+            background: var(--bg-card2);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .breakdown-label {
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            margin-bottom: 4px;
+        }
+
+        .breakdown-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: var(--font-head);
+        }
+
+        .breakdown-weight {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── CPI Forecast table ────────────────────────────────────────────────── */
+        .forecast-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        .forecast-table th,
+        .forecast-table td {
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .forecast-table th {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .forecast-table td {
+            font-size: 0.88rem;
+            border-bottom: 1px solid rgba(99, 179, 237, 0.06);
+        }
+
+        .forecast-table tr:last-child td {
+            border: none;
+        }
+
+        .cpi-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            transition: width .5s;
+        }
+
+        /* ── Footer ────────────────────────────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            margin-top: 48px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ── Tabs ───────────────────────────────────────────────────────────────── */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-card2);
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            width: fit-content;
+            margin-bottom: 28px;
+        }
+
+        .tab-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font-main);
+            background: transparent;
+            color: var(--text-sec);
+            transition: all .2s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── Responsive ─────────────────────────────────────────────────────────── */
+        @media(max-width:640px) {
+            .hero {
+                padding: 48px 16px 36px;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 32px 0;
+            }
+        }
+
+        /* ── Spinner ─────────────────────────────────────────────────────────────── */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, .3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            display: none;
+        }
+
+        .btn.loading .spinner {
+            display: block;
+        }
+
+        .btn.loading .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Toast ───────────────────────────────────────────────────────────────── */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 20px;
+            font-size: 0.85rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 360px;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #toast.error {
+            border-color: rgba(239, 68, 68, .4);
+        }
+
+        #toast.success {
+            border-color: rgba(16, 185, 129, .4);
+        }
+
+        /* ── Data Explorer ────────────────────────────────────────────────────── */
+        .data-explorer-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .data-explorer-controls input,
+        .data-explorer-controls select {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .data-table-wrap {
+            overflow-x: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-card);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(99, 179, 237, 0.06);
+        }
+
+        .data-table th {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--bg-card2);
+        }
+
+        .data-table td.text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- ── NAVBAR ──────────────────────────────────────────────────────────── -->
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">🏙️</div>
+                MP-Life
+            </div>
+            <div class="nav-links">
+                <a class="nav-link active" onclick="scrollToSection('#overview')">Overview</a>
+                <a class="nav-link" onclick="scrollToSection('#rent')">Rent</a>
+                <a class="nav-link" onclick="scrollToSection('#grocery')">Grocery</a>
+                <a class="nav-link" onclick="scrollToSection('#cpi')">Inflation</a>
+                <a class="nav-link" onclick="scrollToSection('#metro')">Metro</a>
+                <a class="nav-link" onclick="scrollToSection('#col')">CoL Index</a>
+                <a class="nav-link" onclick="scrollToSection('#locality')">Where to Live?</a>
+                <a class="nav-link" onclick="scrollToSection('#data')">Raw Data</a>
+            </div>
+            <div class="nav-status">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Connecting…</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+
+        <!-- ── HERO ──────────────────────────────────────────────────────────── -->
+        <section class="hero">
+            <div class="hero-badge">🤖 AI-Powered Insights</div>
+            <h1>Cost of Living Analytics<br />for Madhya Pradesh</h1>
+            <p>Real-time ML predictions for rent, groceries, inflation, and transport — built on scraped market data
+                from Bhopal and beyond.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">1,080</div>
+                    <div class="label">Rental listings</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">197</div>
+                    <div class="label">Grocery prices</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">42</div>
+                    <div class="label">Metro routes</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">5</div>
+                    <div class="label">ML models</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── OVERVIEW CARDS ─────────────────────────────────────────────────── -->
+        <section class="section" id="overview">
+            <div class="section-header">
+                <h2>📊 Live Overview <span class="tag">Real-time</span></h2>
+                <p>Key cost signals for Bhopal, MP — updated from ML models.</p>
+            </div>
+            <div class="cards-grid" id="overviewCards">
+                <!-- Populated by JS -->
+                <div class="card">
+                    <div class="skeleton"></div>
+                    <div class="skeleton" style="margin-top:12px;width:60%"></div>
+                </div>
+                <div class="card">
+                    <div class="skeleton"></div>
+                    <div class="skeleton" style="margin-top:12px;width:60%"></div>
+                </div>
+                <div class="card">
+                    <div class="skeleton"></div>
+                    <div class="skeleton" style="margin-top:12px;width:60%"></div>
+                </div>
+                <div class="card">
+                    <div class="skeleton"></div>
+                    <div class="skeleton" style="margin-top:12px;width:60%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── RENT SECTION ───────────────────────────────────────────────────── -->
+        <section class="section" id="rent">
+            <div class="section-header">
+                <h2>🏠 Rent Price Predictor</h2>
+                <p>Powered by RandomForest trained on 952 OLX listings across MP.</p>
+            </div>
+            <div class="predict-panel">
+                <div class="predict-form">
+                    <h3>Configure Property</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rentBhk">BHK Type</label>
+                            <select id="rentBhk">
+                                <option value="1">1 BHK</option>
+                                <option value="2" selected>2 BHK</option>
+                                <option value="3">3 BHK</option>
+                                <option value="4">4 BHK</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rentBath">Bathrooms</label>
+                            <select id="rentBath">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="rentSqft">Area (sq. ft)</label>
+                        <input type="number" id="rentSqft" value="900" min="100" max="10000" step="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="rentCity">City</label>
+                        <select id="rentCity">
+                            <option value="BHOPAL" selected>Bhopal</option>
+                            <option value="DEWAS">Dewas</option>
+                            <option value="SAGAR">Sagar</option>
+                            <option value="GUNA">Guna</option>
+                            <option value="VIDISHA">Vidisha</option>
+                            <option value="HOSHANGABAD">Hoshangabad</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="rentBtn" onclick="predictRent()">
+                        <div class="spinner"></div>
+                        <span class="btn-text">⚡ Predict Rent</span>
+                    </button>
+                </div>
+                <div class="predict-result" id="rentResult">
+                    <div class="result-icon">🏠</div>
+                    <div class="result-label">Estimated Rent</div>
+                    <div class="result-amount" id="rentAmount">—</div>
+                    <div class="result-sub">per month</div>
+                    <div class="result-meta" id="rentMeta" style="display:none">
+                        <div class="result-row"><span>Model</span><span id="rentModel">—</span></div>
+                        <div class="result-row"><span>City</span><span id="rentCityOut">—</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart: Rent by BHK -->
+            <div style="margin-top:20px">
+                <div class="chart-card">
+                    <h3>Rent Distribution by BHK (Predicted)</h3>
+                    <p>Estimated monthly rent for different configurations in Bhopal, 900 sqft</p>
+                    <div class="chart-wrap"><canvas id="rentChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── GROCERY SECTION ─────────────────────────────────────────────────── -->
+        <section class="section" id="grocery">
+            <div class="section-header">
+                <h2>🛒 Grocery Basket</h2>
+                <p>Daily essential costs from Blinkit (Bhopal pin 462010) — 197 items scraped.</p>
+            </div>
+            <div class="grocery-grid" id="groceryGrid">
+                <!-- Populated by JS -->
+            </div>
+            <div style="margin-top:16px">
+                <div class="chart-card">
+                    <h3>Grocery Category Spending</h3>
+                    <p>Daily cost breakdown per food category</p>
+                    <div class="chart-wrap"><canvas id="groceryChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CPI SECTION ──────────────────────────────────────────────────────── -->
+        <section class="section" id="cpi">
+            <div class="section-header">
+                <h2>📈 Inflation Trends</h2>
+                <p>Bhopal CPI (General Index, base year 2016) — linear regression forecast with 1.27% MAPE.</p>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Historical CPI</h3>
+                    <p>Bhopal Consumer Price Index Month over Year</p>
+                    <div class="chart-wrap"><canvas id="cpiChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <h3>24-Month Forecast</h3>
+                    <p>ML-predicted CPI values — Mar 2025 to Feb 2027</p>
+                    <div style="overflow-x:auto">
+                        <table class="forecast-table" id="cpiTable">
+                            <thead>
+                                <tr>
+                                    <th>Period</th>
+                                    <th>Forecast CPI</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cpiTableBody">
+                                <tr>
+                                    <td colspan="3" style="color:var(--text-muted);font-style:italic">Loading…</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── METRO SECTION ──────────────────────────────────────────────── -->
+        <section class="section" id="metro">
+            <div class="section-header">
+                <h2>🚇 Metro Fare Calculator</h2>
+                <p>Select source &amp; destination stations — real fare lookup from 42 Bhopal metro routes.</p>
+            </div>
+            <div class="metro-calc">
+                <div>
+                    <div class="form-group">
+                        <label for="metroFrom">🚉 From Station</label>
+                        <select id="metroFrom" onchange="calcMetro()">
+                            <option value="AIIMS">AIIMS</option>
+                            <option value="Alkapuri">Alkapuri</option>
+                            <option value="Board Office Chauraha">Board Office Chauraha</option>
+                            <option value="DRM Office">DRM Office</option>
+                            <option value="Kendriya Vidyalaya">Kendriya Vidyalaya</option>
+                            <option value="Rani Kamalapati (RKMP)">Rani Kamalapati (RKMP)</option>
+                            <option value="Subhash Nagar">Subhash Nagar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="metroTo">🏁 To Station</label>
+                        <select id="metroTo" onchange="calcMetro()">
+                            <option value="AIIMS">AIIMS</option>
+                            <option value="Alkapuri">Alkapuri</option>
+                            <option value="Board Office Chauraha">Board Office Chauraha</option>
+                            <option value="DRM Office">DRM Office</option>
+                            <option value="Kendriya Vidyalaya">Kendriya Vidyalaya</option>
+                            <option value="Rani Kamalapati (RKMP)" selected>Rani Kamalapati (RKMP)</option>
+                            <option value="Subhash Nagar">Subhash Nagar</option>
+                        </select>
+                    </div>
+                    <div class="form-group"
+                        style="margin-top:8px;padding:14px;background:var(--bg-input);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-sec)">
+                        <div id="metroRouteInfo" style="line-height:1.8">
+                            <span style="color:var(--text-muted)">Select stations to see route details…</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fare-display">
+                    <div
+                        style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">
+                        Estimated Fare</div>
+                    <div class="fare-amount" id="fareAmount">₹—</div>
+                    <div class="fare-rule">Bhopal Metro (Orange Line)</div>
+                    <div style="margin-top:16px;font-size:0.82rem;color:var(--text-sec)" id="fareMonthly">Select
+                        stations above</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── COMPOSITE COL INDEX ───────────────────────────────────────────────── -->
+        <section class="section" id="col">
+            <div class="section-header">
+                <h2>🧮 Cost of Living Index</h2>
+                <p>Weighted composite score: rent 50%, grocery 30%, transport 5%, CPI 15%.</p>
+            </div>
+            <div class="gauge-section" id="colPanel">
+                <div class="gauge-title">MP Cost of Living Composite Index</div>
+                <div class="gauge-sub">100 = January 2021 Bhopal baseline</div>
+                <div class="gauge-number" id="colIndex">—</div>
+                <div class="gauge-baseline" id="colBaseline">Loading…</div>
+                <div class="gauge-bar-wrap">
+                    <div class="gauge-bar-fill" id="colBar" style="width:0%"></div>
+                </div>
+                <div class="gauge-labels">
+                    <span>Affordable (100)</span>
+                    <span>Moderate (200)</span>
+                    <span>Expensive (350+)</span>
+                </div>
+                <div class="gauge-breakdown" id="colBreakdown"><!-- populated by JS --></div>
+            </div>
+        </section>
+
+        <!-- ── LOCALITY FINDER ──────────────────────────────────────────────────── -->
+        <section class="section" id="locality">
+            <div class="section-header">
+                <h2>📍 Where Should You Live? <span class="tag">AI Recommender</span></h2>
+                <p>Tell us about yourself — we'll find the best Bhopal localities matching your salary, workplace, and
+                    lifestyle.</p>
+            </div>
+
+            <!-- Wizard card -->
+            <div class="chart-card" style="padding:32px">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+                    <!-- Left: form -->
+                    <div>
+                        <h3 style="font-family:var(--font-head);font-size:1.1rem;margin-bottom:20px">Your Profile</h3>
+
+                        <div class="form-group">
+                            <label for="locSalary">💰 Monthly Take-Home Salary (₹)</label>
+                            <input type="number" id="locSalary" placeholder="e.g. 50000" min="10000" max="500000"
+                                step="5000" value="50000"
+                                oninput="document.getElementById('locBudgetHint').textContent='₹'+Math.round(this.value*0.3).toLocaleString('en-IN')+'/month'" />
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">Max rent budget: <span
+                                    id="locBudgetHint" style="color:var(--accent)">₹15,000/month</span> (30% rule)</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="locWorkplace">🏢 Workplace Area</label>
+                            <select id="locWorkplace">
+                                <option value="MP NAGAR">MP Nagar (IT / Offices)</option>
+                                <option value="GOVINDPURA">Govindpura (Industrial)</option>
+                                <option value="ARERA COLONY">Arera Colony</option>
+                                <option value="HABIBGANJ">Habibganj / Rani Kamlapati</option>
+                                <option value="KOLAR ROAD">Kolar Road</option>
+                                <option value="AIIMS BHOPAL">AIIMS Bhopal (Medical)</option>
+                                <option value="BHEL">BHEL Township</option>
+                                <option value="IT PARK">IT Park</option>
+                                <option value="NEW MARKET">New Market / TT Nagar</option>
+                                <option value="BHOPAL RAILWAY">Bhopal Railway Station</option>
+                                <option value="UNIVERSITY">Barkatullah University</option>
+                                <option value="NISHATPURA">Nishatpura</option>
+                                <option value="BAIRAGARH">Bairagarh</option>
+                                <option value="MANDIDEEP">Mandideep (Industrial)</option>
+                                <option value="OTHER">Other / Mixed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="locBhk">🏠 BHK Preference</label>
+                                <select id="locBhk">
+                                    <option value="1">1 BHK</option>
+                                    <option value="2" selected>2 BHK</option>
+                                    <option value="3">3 BHK</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="locCommute">🚗 Max Commute (km)</label>
+                                <input type="number" id="locCommute" value="15" min="3" max="40" step="1" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="locLifestyle">✨ Lifestyle Priority</label>
+                            <select id="locLifestyle">
+                                <option value="budget">💸 Budget First — lowest possible rent</option>
+                                <option value="comfort" selected>🛋️ Comfort — mid-range, residential</option>
+                                <option value="premium">⭐ Premium — upscale, established area</option>
+                                <option value="family">👨‍👩‍👧 Family — safe, residential, gated</option>
+                                <option value="connected">🚇 Well-connected — near transport hubs</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" id="locBtn" onclick="findLocality()" style="margin-top:4px">
+                            <div class="spinner"></div>
+                            <span class="btn-text">🔍 Find Best Localities</span>
+                        </button>
+                    </div>
+
+                    <!-- Right: summary / placeholder -->
+                    <div id="locSummaryBox"
+                        style="display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--bg-card2);border-radius:var(--radius-sm);border:1px solid var(--border);padding:28px;text-align:center;min-height:300px">
+                        <div style="font-size:52px;margin-bottom:12px">🗺️</div>
+                        <div style="font-size:0.85rem;color:var(--text-sec);line-height:1.7">
+                            Fill in your details and click<br />
+                            <strong style="color:var(--text-primary)">Find Best Localities</strong><br />
+                            to get AI-powered neighbourhood<br />recommendations matched to your<br />salary &amp;
+                            workplace.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Locality Map Container -->
+                <div id="mapSection"
+                    style="margin-top:20px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--border);">
+                    <h3
+                        style="padding:16px; margin:0; font-family:var(--font-head); font-size:1rem; border-bottom:1px solid var(--border); background:var(--bg-card2)">
+                        🗺️ Interactive Bhopal Locality Map</h3>
+                    <div id="localityMap" style="height: 400px; width: 100%; z-index:1;"></div>
+                </div>
+
+                <!-- Results -->
+                <div id="locResults" style="display:none">
+                    <div style="border-top:1px solid var(--border);margin:8px 0 24px"></div>
+                    <h3 style="font-family:var(--font-head);font-size:1rem;margin-bottom:4px">📌 Top Recommended
+                        Localities</h3>
+                    <p style="font-size:0.82rem;color:var(--text-sec);margin-bottom:20px" id="locResultsSubtitle">Ranked
+                        by composite score: budget · commute · availability · lifestyle</p>
+                    <div id="locCards" style="display:flex;flex-direction:column;gap:12px"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── DATA EXPLORER ────────────────────────────────────────────────────── -->
+        <section class="section" id="data">
+            <div class="section-header">
+                <h2>📊 Scraped Data Explorer</h2>
+                <p>Browse the raw curated data sets powering the AI models. Updated monthly.</p>
+            </div>
+            <div class="chart-card" style="padding:24px">
+                <div class="data-explorer-controls" style="display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap">
+                    <select id="dataTab" onchange="fetchExplorerData()" style="flex:1; min-width:180px">
+                        <option value="rent">🏠 Rent Listings (OLX)</option>
+                        <option value="grocery">🛒 Grocery Prices (Blinkit)</option>
+                        <option value="metro">🚇 Metro Routes & Fares</option>
+                        <option value="cpi">📈 Inflation & CPI</option>
+                    </select>
+                    <input type="text" id="dataSearch" placeholder="Search data..." oninput="debounceDataSearch()"
+                        style="flex:2; min-width:200px" />
+                </div>
+                <div class="data-table-wrap" id="dataTableWrap" style="min-height:300px">
+                    <div style="padding:40px; text-align:center; color:var(--text-muted)">Loading data...</div>
+                </div>
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:0.8rem; color:var(--text-sec)">
+                    <div id="dataCount">Showing 0 records</div>
+                    <div style="display:flex; gap:8px">
+                        <button class="btn btn-outline" style="padding:6px 12px; font-size:0.75rem"
+                            onclick="dataPage--; fetchExplorerData()">Previous</button>
+                        <button class="btn btn-outline" style="padding:6px 12px; font-size:0.75rem"
+                            onclick="dataPage++; fetchExplorerData()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- wrapper -->
+
+    <footer>
+        <div class="wrapper">
+            <p>Built on real scraped data from OLX, Blinkit, Bhopal Metro & Labour Bureau CPI.<br />
+                Models: RandomForest · ARIMA · DecisionTree · Ridge. API: <a href="http://localhost:8000/docs"
+                    target="_blank">FastAPI docs ↗</a></p>
+        </div>
+    </footer>
+
+    <!-- ── TOAST ──────────────────────────────────────────────────────────────── -->
+    <div id="toast">
+        <span id="toastIcon"></span>
+        <span id="toastMsg"></span>
+    </div>
+
+    <!-- Leaflet JS for Maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- ── JS ─────────────────────────────────────────────────────────────────── -->
+    <script>
+        const API = 'http://localhost:8000';
+        let chartInstances = {};
+
+        // ── Toast ──────────────────────────────────────────────────────────────
+        function showToast(msg, type = 'info') {
+            const t = document.getElementById('toast');
+            const icons = { info: 'ℹ️', success: '✅', error: '❌', warn: '⚠️' };
+            document.getElementById('toastIcon').textContent = icons[type] || 'ℹ️';
+            document.getElementById('toastMsg').textContent = msg;
+            t.className = `show ${type}`;
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.className = '', 3500);
+        }
+
+        // ── Smooth scroll ─────────────────────────────────────────────────────
+        function scrollToSection(id) {
+            document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ── API fetch ─────────────────────────────────────────────────────────
+        async function apiFetch(url, opts = {}) {
+            const res = await fetch(API + url, opts);
+            if (!res.ok) throw new Error(`API error ${res.status}`);
+            return res.json();
+        }
+
+        // ── Health check ──────────────────────────────────────────────────────
+        async function checkHealth() {
+            try {
+                const h = await apiFetch('/health');
+                document.getElementById('statusDot').className = 'status-dot';
+                document.getElementById('statusText').textContent = 'API connected';
+                return true;
+            } catch (e) {
+                document.getElementById('statusDot').className = 'status-dot offline';
+                document.getElementById('statusText').textContent = 'API offline';
+                showToast('API is offline. Start it with: uvicorn api.main:app --port 8000', 'warn');
+                return false;
+            }
+        }
+
+        // ── Format currency ───────────────────────────────────────────────────
+        const fmtInr = (v) => '₹' + Math.round(v).toLocaleString('en-IN');
+        const fmtDec = (v) => Number(v).toFixed(1);
+
+        // ── Overview cards ────────────────────────────────────────────────────
+        function buildCard({ icon, label, value, sub, badge, badgeClass, color }) {
+            return `<div class="card">
+        <div class="card-icon ${color}">${icon}</div>
+        <div class="card-label">${label}</div>
+        <div class="card-value">${value}</div>
+        ${sub ? `<div class="card-sub">${sub}</div>` : ''}
+        ${badge ? `<div class="card-badge ${badgeClass}">${badge}</div>` : ''}
+      </div>`;
+        }
+
+        // ── Grocery emojis ─────────────────────────────────────────────────────
+        const GROCERY_EMOJIS = { milk: '🥛', bread: '🍞', eggs: '🥚', vegetables: '🥦', fruits: '🍎' };
+
+        // ── Chart helper ──────────────────────────────────────────────────────
+        function makeChart(id, config) {
+            if (chartInstances[id]) chartInstances[id].destroy();
+            const ctx = document.getElementById(id).getContext('2d');
+            chartInstances[id] = new Chart(ctx, config);
+        }
+
+        // ── Load grocery ──────────────────────────────────────────────────────
+        async function loadGrocery() {
+            try {
+                const d = await apiFetch('/predict/grocery');
+                const grid = document.getElementById('groceryGrid');
+                grid.innerHTML = Object.entries(d.basket).map(([cat, info]) => `
+          <div class="grocery-item">
+            <span class="grocery-emoji">${GROCERY_EMOJIS[cat] || '🛒'}</span>
+            <div>
+              <div class="grocery-name">${cat.charAt(0).toUpperCase() + cat.slice(1)}</div>
+              <div class="grocery-qty">${info.amount}${info.unit}/day</div>
+              <div class="grocery-cost">${info.cost_inr ? fmtInr(info.cost_inr) : 'N/A'}</div>
+            </div>
+          </div>`).join('');
+
+                // Add total card
+                grid.innerHTML += `<div class="grocery-item" style="background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.3)">
+          <span class="grocery-emoji">🧮</span>
+          <div>
+            <div class="grocery-name">Daily Total</div>
+            <div class="grocery-qty">5 categories</div>
+            <div class="grocery-cost" style="color:var(--accent)">${fmtInr(d.total_daily_inr)}/day</div>
+          </div>
+        </div>`;
+
+                // Donut chart
+                const cats = Object.keys(d.basket);
+                const costs = cats.map(c => d.basket[c].cost_inr || 0);
+                const COLORS = ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'];
+                makeChart('groceryChart', {
+                    type: 'doughnut',
+                    data: {
+                        labels: cats.map(c => c.charAt(0).toUpperCase() + c.slice(1)),
+                        datasets: [{ data: costs, backgroundColor: COLORS, borderWidth: 0, hoverOffset: 8 }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right', labels: { color: '#8fa5c2', font: { size: 12 } } },
+                            tooltip: { callbacks: { label: ctx => ` ₹${ctx.parsed.toFixed(2)}/day` } }
+                        },
+                        cutout: '65%'
+                    }
+                });
+
+                return d;
+            } catch (e) { showToast('Could not load grocery data', 'error'); return null; }
+        }
+
+        // ── Load CPI ──────────────────────────────────────────────────────────
+        async function loadCpi() {
+            try {
+                const d = await apiFetch('/predict/cpi');
+                // Table
+                const tbody = document.getElementById('cpiTableBody');
+                const baseCpi = d.latest_cpi;
+                tbody.innerHTML = Object.entries(d.forecast_24m).map(([month, cpi]) => {
+                    const pct = (cpi / baseCpi * 100) - 100;
+                    const barW = Math.min(Math.max((cpi - 120) / (200 - 120) * 100, 5), 100);
+                    return `<tr>
+            <td>${month}</td>
+            <td><strong>${cpi.toFixed(1)}</strong></td>
+            <td>
+              <span class="cpi-bar" style="width:${barW}px"></span>
+              <span style="color:${pct > 0 ? 'var(--amber)' : 'var(--green)'}">
+                ${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%
+              </span>
+            </td>
+          </tr>`;
+                }).join('');
+
+                // CPI line chart (historical from known data)
+                const histLabels = ['Jan 2021', 'Feb 2021', 'Jan 2022', 'Feb 2022', 'Jan 2023', 'Feb 2023', 'Jan 2024', 'Feb 2024', 'Jan 2025', 'Feb 2025'];
+                const histCpi = [113.9, 115.1, 121.1, 122.8, 127.8, 128.2, 135.0, 134.2, 132.4, 132.7];
+                const fcstLabels = Object.keys(d.forecast_24m);
+                const fcstVals = Object.values(d.forecast_24m);
+
+                makeChart('cpiChart', {
+                    type: 'line',
+                    data: {
+                        labels: [...histLabels, ...fcstLabels],
+                        datasets: [
+                            {
+                                label: 'Historical CPI',
+                                data: [...histCpi, ...Array(fcstLabels.length).fill(null)],
+                                borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.08)',
+                                fill: true, tension: 0.4, pointRadius: 4, borderWidth: 2,
+                            },
+                            {
+                                label: 'Forecasted CPI',
+                                data: [...Array(histLabels.length - 1).fill(null), histCpi[histLabels.length - 1], ...fcstVals],
+                                borderColor: '#8b5cf6', borderDash: [6, 3],
+                                backgroundColor: 'rgba(139,92,246,0.06)', fill: true,
+                                tension: 0.4, pointRadius: 4, borderWidth: 2,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        scales: {
+                            x: { ticks: { color: '#8fa5c2', maxRotation: 45, font: { size: 10 } }, grid: { color: 'rgba(99,179,237,0.06)' } },
+                            y: { ticks: { color: '#8fa5c2', font: { size: 11 } }, grid: { color: 'rgba(99,179,237,0.06)' } }
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#8fa5c2', font: { size: 12 } } },
+                            tooltip: { mode: 'index', intersect: false }
+                        }
+                    }
+                });
+
+                return d;
+            } catch (e) { showToast('Could not load CPI data', 'error'); return null; }
+        }
+
+        // ── Load overview (needs rent prediction first) ────────────────────────
+        async function loadOverview(grocery, cpi, col) {
+            const cards = document.getElementById('overviewCards');
+            const rentPred = await predictQuick(2, 2, 900, 'BHOPAL');
+            cards.innerHTML = [
+                buildCard({ icon: '🏠', label: '2BHK Rent (Bhopal)', value: rentPred ? fmtInr(rentPred) : '—', sub: '900 sqft, OLX data', badge: 'RandomForest', badgeClass: 'badge-blue', color: 'blue' }),
+                buildCard({ icon: '🛒', label: 'Monthly Grocery', value: grocery ? fmtInr(grocery.total_monthly_inr) : '—', sub: 'Basic basket, 1 person', badge: 'Blinkit prices', badgeClass: 'badge-green', color: 'green' }),
+                buildCard({ icon: '📈', label: 'CPI Index (Latest)', value: cpi ? fmtDec(cpi.latest_cpi) : '—', sub: `as of ${cpi?.date_of_latest || ''}`, badge: `MAPE ${cpi?.mape_pct}%`, badgeClass: 'badge-green', color: 'purple' }),
+                buildCard({ icon: '🧮', label: 'CoL Index', value: col ? fmtDec(col.col_index) : '—', sub: '100 = Jan 2021 baseline', badge: 'Higher = costlier', badgeClass: 'badge-amber', color: 'amber' }),
+            ].join('');
+        }
+
+        // ── Quick rent fetch (no UI update) ───────────────────────────────────
+        async function predictQuick(bhk, bath, sqft, city) {
+            try {
+                const d = await apiFetch('/predict/rent', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bhk, bathrooms: bath, sqft, city })
+                });
+                return d.predicted_rent_inr;
+            } catch { return null; }
+        }
+
+        // ── Rent predictor ─────────────────────────────────────────────────────
+        async function predictRent() {
+            const btn = document.getElementById('rentBtn');
+            btn.classList.add('loading');
+            try {
+                const body = {
+                    bhk: +document.getElementById('rentBhk').value,
+                    bathrooms: +document.getElementById('rentBath').value,
+                    sqft: +document.getElementById('rentSqft').value,
+                    city: document.getElementById('rentCity').value,
+                };
+                const d = await apiFetch('/predict/rent', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                document.getElementById('rentAmount').textContent = fmtInr(d.predicted_rent_inr);
+                document.getElementById('rentModel').textContent = d.model_used;
+                document.getElementById('rentCityOut').textContent = d.city;
+                document.getElementById('rentMeta').style.display = 'flex';
+                showToast(`Predicted: ${fmtInr(d.predicted_rent_inr)}/month`, 'success');
+            } catch (e) {
+                showToast('Prediction failed — is the API running?', 'error');
+            }
+            btn.classList.remove('loading');
+        }
+
+        // ── Rent bar chart (different BHKs) ──────────────────────────────────
+        async function buildRentChart() {
+            const configs = [
+                { bhk: 1, bath: 1, sqft: 500 }, { bhk: 2, bath: 2, sqft: 900 },
+                { bhk: 3, bath: 3, sqft: 1400 }, { bhk: 4, bath: 4, sqft: 2000 }
+            ];
+            const prices = await Promise.all(configs.map(c => predictQuick(c.bhk, c.bath, c.sqft, 'BHOPAL')));
+            makeChart('rentChart', {
+                type: 'bar',
+                data: {
+                    labels: ['1BHK / 500sqft', '2BHK / 900sqft', '3BHK / 1400sqft', '4BHK / 2000sqft'],
+                    datasets: [{
+                        label: 'Monthly Rent (₹)',
+                        data: prices,
+                        backgroundColor: ['rgba(59,130,246,0.7)', 'rgba(139,92,246,0.7)', 'rgba(6,182,212,0.7)', 'rgba(16,185,129,0.7)'],
+                        borderRadius: 8, borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { color: '#8fa5c2', font: { size: 11 } }, grid: { display: false } },
+                        y: { ticks: { color: '#8fa5c2', callback: v => '₹' + Number(v).toLocaleString('en-IN'), font: { size: 11 } }, grid: { color: 'rgba(99,179,237,0.06)' } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: ctx => ' ₹' + Number(ctx.parsed.y).toLocaleString('en-IN') + '/month' } }
+                    }
+                }
+            });
+        }
+
+        // ── Load CoL Index ─────────────────────────────────────────────────────
+        async function loadCol() {
+            try {
+                const d = await apiFetch('/composite-index', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bhk: 1, sqft: 500, city: 'BHOPAL', avg_metro_fare: 20 })
+                });
+                document.getElementById('colIndex').textContent = fmtDec(d.col_index);
+                document.getElementById('colBaseline').textContent = `₹${Math.round(d.total_monthly_inr).toLocaleString('en-IN')}/month total cost in Bhopal`;
+
+                // Bar fill — clamp at 350 max
+                const pct = Math.min(d.col_index / 350 * 100, 100);
+                document.getElementById('colBar').style.width = pct + '%';
+
+                const breakdown = document.getElementById('colBreakdown');
+                breakdown.innerHTML = [
+                    { label: 'Monthly Rent (1BHK)', value: fmtInr(d.rent_monthly), weight: '50% weight', color: '#3b82f6' },
+                    { label: 'Monthly Grocery', value: fmtInr(d.grocery_monthly), weight: '30% weight', color: '#8b5cf6' },
+                    { label: 'Transport (10 trips)', value: fmtInr(d.transport_monthly), weight: '5% weight', color: '#06b6d4' },
+                    { label: 'CPI Factor', value: `×${d.cpi_factor}`, weight: '15% weight', color: '#f59e0b' },
+                ].map(item => `
+          <div class="breakdown-item">
+            <div class="breakdown-label">${item.label}</div>
+            <div class="breakdown-value" style="color:${item.color}">${item.value}</div>
+            <div class="breakdown-weight">${item.weight}</div>
+          </div>`).join('');
+                return d;
+            } catch (e) { showToast('CoL index loading failed', 'error'); return null; }
+        }
+
+        // -- Metro fare lookup by station name
+        async function calcMetro() {
+            const fromSt = document.getElementById('metroFrom')?.value;
+            const toSt = document.getElementById('metroTo')?.value;
+            if (!fromSt || !toSt) return;
+            const info = document.getElementById('metroRouteInfo');
+            if (fromSt === toSt) {
+                document.getElementById('fareAmount').textContent = '₹0';
+                if (info) info.innerHTML = 'Same station selected — fare is ₹0.';
+                document.getElementById('fareMonthly').innerHTML = 'Same station = ₹0';
+                return;
+            }
+            try {
+                const params = new URLSearchParams({ from_station: fromSt, to_station: toSt });
+                const d = await apiFetch('/data/metro/route?' + params);
+                document.getElementById('fareAmount').textContent = d.fare || '₹—';
+                const steps = (d.route_steps || []).map(s => `<li style="margin-bottom:4px">${s}</li>`).join('');
+                if (info) info.innerHTML = `
+                    <strong style="color:var(--text-primary)">${d.from} → ${d.to}</strong><br/>
+                    Distance: ${d.distance} &nbsp;|&nbsp; Time: ${d.time} &nbsp;|&nbsp; ${d.stops}
+                    ${d.interchange && d.interchange !== 'None' ? '<br/>Interchange: ' + d.interchange : ''}
+                    ${steps ? '<ol style="margin-top:8px;padding-left:16px;font-size:0.78rem;color:var(--text-sec)">' + steps + '</ol>' : ''}`;
+                const fareNum = parseInt((d.fare || '0').replace(/[^0-9]/g, '')) || 0;
+                document.getElementById('fareMonthly').innerHTML =
+                    '10 trips/month → <strong style="color:var(--accent3)">' + fmtInr(fareNum * 10) + '/month</strong>';
+            } catch (e) {
+                document.getElementById('fareAmount').textContent = '₹—';
+                if (info) info.innerHTML = '<span style="color:var(--red)">Route not found or API offline</span>';
+            }
+        }
+
+        // ── Main ──────────────────────────────────────────────────────────────
+        async function init() {
+            const online = await checkHealth();
+            if (!online) return;
+
+            // Load all data in parallel
+            const [grocery, cpi, col] = await Promise.all([
+                loadGrocery(),
+                loadCpi(),
+                loadCol(),
+            ]);
+
+            await Promise.all([
+                loadOverview(grocery, cpi, col),
+                buildRentChart(),
+                predictRent(),
+                calcMetro(),
+            ]);
+
+            showToast('All data loaded from API!', 'success');
+        }
+
+        // ── Locality recommender ─────────────────────────────────────
+        const TIER_BADGES = {
+            budget: { label: 'Budget', cls: 'badge-green' },
+            'mid-range': { label: 'Mid-range', cls: 'badge-blue' },
+            premium: { label: 'Premium', cls: 'badge-amber' },
+        };
+        const LIFESTYLE_ICONS = {
+            budget: '💸', affordable: '💰', 'mid-range': '🏡', residential: '🌳',
+            family: '👨‍👩‍👧', premium: '⭐', urban: '🏙️', commercial: '🏬',
+            'well-connected': '🚇', gated: '🔐', modern: '✨', established: '🏛️',
+            hillside: '⛰️', industrial: '🏭', outskirts: '🌾', central: '📍',
+            'scientific-community': '🔬', 'railway': '🚂',
+        };
+
+        function scoreBar(val) {
+            const pct = Math.round(val * 100);
+            const color = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--amber)' : 'var(--red)';
+            return `<div style="display:flex;align-items:center;gap:6px">
+                <div style="flex:1;height:4px;background:var(--bg-input);border-radius:2px">
+                  <div style="width:${pct}%;height:100%;background:${color};border-radius:2px"></div>
+                </div>
+                <span style="font-size:0.72rem;color:${color};width:30px;text-align:right">${pct}%</span>
+            </div>`;
+        }
+
+        async function findLocality() {
+            const btn = document.getElementById('locBtn');
+            btn.classList.add('loading');
+            try {
+                const body = {
+                    salary_monthly: +document.getElementById('locSalary').value,
+                    workplace: document.getElementById('locWorkplace').value,
+                    bhk: +document.getElementById('locBhk').value,
+                    lifestyle: document.getElementById('locLifestyle').value,
+                    commute_tolerance_km: +document.getElementById('locCommute').value,
+                    top_n: 5,
+                };
+                const data = await apiFetch('/recommend/locality', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+
+                // Update summary panel
+                const prof = data.user_profile;
+                document.getElementById('locSummaryBox').innerHTML = `
+                    <div style="font-size:36px;margin-bottom:12px">✅</div>
+                    <div style="font-size:0.9rem;font-weight:700;margin-bottom:10px;font-family:var(--font-head)">
+                      ${data.recommendations.length} localities found
+                    </div>
+                    <div style="font-size:0.8rem;color:var(--text-sec);line-height:1.8;text-align:left;width:100%">
+                      <div>💰 Salary: <strong>${fmtInr(prof.salary_monthly)}/mo</strong></div>
+                      <div>🏢 Works at: <strong>${prof.workplace}</strong></div>
+                      <div>🏠 Wants: <strong>${prof.bhk} BHK</strong></div>
+                      <div>🎯 Lifestyle: <strong>${prof.lifestyle}</strong></div>
+                      <div>📏 Max commute: <strong>${prof.commute_tolerance_km} km</strong></div>
+                      <div style="margin-top:8px;padding:8px;background:rgba(59,130,246,0.1);border-radius:6px">
+                        💡 Budget rule: max rent <strong style="color:var(--accent)">${fmtInr(prof.max_rent_budget)}/mo</strong>
+                      </div>
+                    </div>`;
+
+                // Render locality cards
+                const cards = document.getElementById('locCards');
+                cards.innerHTML = data.recommendations.map((loc, i) => {
+                    const tier = TIER_BADGES[loc.tier] || { label: loc.tier, cls: 'badge-blue' };
+                    const tags = loc.lifestyle_tags.slice(0, 4).map(t =>
+                        `<span style="font-size:0.7rem;background:var(--bg-input);border:1px solid var(--border);border-radius:4px;padding:2px 8px;color:var(--text-sec)">${(LIFESTYLE_ICONS[t] || '') + ' ' + t}</span>`
+                    ).join('');
+                    const distStr = loc.distance_to_work_km !== null
+                        ? `${loc.distance_to_work_km} km to work`
+                        : 'Distance N/A';
+                    const rankColor = i === 0 ? '#f59e0b' : i === 1 ? '#8fa5c2' : i === 2 ? '#cd7f32' : 'var(--text-muted)';
+                    const rankEmoji = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'][i] || `${i + 1}.`;
+                    return `
+                    <div class="card" style="padding:20px">
+                      <div style="display:flex;align-items:flex-start;gap:16px">
+                        <div style="font-size:28px;min-width:40px;text-align:center">${rankEmoji}</div>
+                        <div style="flex:1">
+                          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+                            <span style="font-family:var(--font-head);font-size:1.05rem;font-weight:700">${loc.locality}</span>
+                            <span class="card-badge ${tier.cls}">${tier.label}</span>
+                            <span class="card-badge badge-blue" style="font-size:0.7rem">${distStr}</span>
+                            <span class="card-badge badge-amber" style="font-size:0.7rem">${loc.budget_fit_pct}% of salary</span>
+                          </div>
+                          <div style="color:var(--text-sec);font-size:0.82rem;margin-bottom:10px;font-style:italic">&ldquo;${loc.why}&rdquo;</div>
+                          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+                            <div><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px">Median Rent</div><div style="font-weight:700;color:var(--accent3)">${fmtInr(loc.median_rent)}/mo</div></div>
+                            <div><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px">Range</div><div style="font-size:0.85rem">${fmtInr(loc.min_rent)} – ${fmtInr(loc.max_rent)}</div></div>
+                            <div><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px">Listings</div><div style="font-size:0.85rem">${loc.listing_count} available</div></div>
+                            <div><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:2px">Avg BHK</div><div style="font-size:0.85rem">${loc.avg_bhk} BHK</div></div>
+                          </div>
+                          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px">${tags}</div>
+                          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+                            ${[
+                            ['Budget', loc.scores.budget],
+                            ['Commute', loc.scores.commute],
+                            ['Options', loc.scores.availability],
+                            ['Lifestyle', loc.scores.lifestyle],
+                        ].map(([label, val]) => `
+                              <div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);margin-bottom:4px">${label}</div>
+                                ${scoreBar(val)}
+                              </div>`).join('')}
+                          </div>
+                          <div style="margin-top:16px">
+                            <button class="btn btn-outline" style="padding: 6px 16px; font-size: 0.8rem" onclick="viewLocalityRentals('${loc.locality}')">
+                                🏙️ View Rentals
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+                }).join('');
+
+                document.getElementById('locResults').style.display = 'block';
+                const recNames = data.recommendations.map(r => r.locality);
+                await loadLocalityMap(recNames);
+                document.getElementById('locResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                showToast(`Top pick: ${data.recommendations[0].locality}`, 'success');
+            } catch (e) {
+                showToast('Locality search failed — is API running?', 'error');
+            }
+            btn.classList.remove('loading');
+        }
+
+        // ── Helper to view rentals from locality card ─────────────────────────
+        function viewLocalityRentals(localityName) {
+            document.getElementById('dataTab').value = 'rent';
+            document.getElementById('dataSearch').value = localityName;
+            document.getElementById('data').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            dataPage = 1;
+            fetchExplorerData();
+        }
+
+        // ── Map Rendering ────────────────────────────────────────────────────
+        let localityMapInstance = null;
+        async function loadLocalityMap(highlightLocalities = []) {
+            try {
+                const res = await apiFetch('/recommend/locality/map');
+
+                if (localityMapInstance) {
+                    localityMapInstance.remove();
+                }
+
+                // Center on Bhopal
+                localityMapInstance = L.map('localityMap').setView([23.2599, 77.4126], 12);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                    maxZoom: 19
+                }).addTo(localityMapInstance);
+
+                // Only plot individual rental listings on the map
+                if (res.rentings && res.rentings.length > 0) {
+                    res.rentings.forEach(r => {
+                        const marker = L.circleMarker([r.lat, r.lng], {
+                            radius: 4,
+                            fillColor: "#f59e0b", // Amber
+                            color: "#fff",
+                            weight: 1,
+                            opacity: 0.9,
+                            fillOpacity: 0.9
+                        }).addTo(localityMapInstance);
+                        marker.bindTooltip(`<b>${r.price}</b><br><span style="font-size:0.8rem">${r.title}</span>`);
+                    });
+                }
+            } catch (e) {
+                console.warn("Could not load map data", e);
+            }
+        }
+
+        // ── Data Explorer ────────────────────────────────────────────────────
+        let dataPage = 1;
+        let dataSearchTimeout = null;
+
+        function debounceDataSearch() {
+            clearTimeout(dataSearchTimeout);
+            dataSearchTimeout = setTimeout(() => { dataPage = 1; fetchExplorerData(); }, 400);
+        }
+
+        async function fetchExplorerData() {
+            const tab = document.getElementById('dataTab').value;
+            const search = document.getElementById('dataSearch').value.trim();
+            const wrap = document.getElementById('dataTableWrap');
+            const params = new URLSearchParams({ search, page: dataPage, per_page: 20 });
+
+            try {
+                wrap.innerHTML = '<div style="padding:40px; text-align:center; color:var(--text-muted)"><div class="spinner"></div> Loading...</div>';
+                const d = await apiFetch(`/data/${tab}?${params}`);
+
+                document.getElementById('dataCount').textContent = `Showing ${(dataPage - 1) * 20 + 1} - ${Math.min(dataPage * 20, d.total)} of ${d.total} records`;
+
+                if (!d.data || d.data.length === 0) {
+                    wrap.innerHTML = '<div style="padding:40px; text-align:center; color:var(--text-muted)">No matching records found.</div>';
+                    return;
+                }
+
+                // Build table
+                const cols = Object.keys(d.data[0]);
+                let html = '<table class="data-table"><thead><tr>';
+                cols.forEach(c => html += `<th>${c}</th>`);
+                html += '</tr></thead><tbody>';
+
+                d.data.forEach(row => {
+                    html += '<tr>';
+                    cols.forEach(c => {
+                        let val = row[c] || '—';
+                        if (c === 'link' && val !== '—') val = `<a href="${val}" target="_blank" style="color:var(--accent);text-decoration:none">View ↗</a>`;
+                        html += `<td>${val}</td>`;
+                    });
+                    html += '</tr>';
+                });
+                html += '</tbody></table>';
+                wrap.innerHTML = html;
+            } catch (e) {
+                wrap.innerHTML = '<div style="padding:40px; text-align:center; color:var(--red)">Failed to load data. Is the API running?</div>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            init();
+            loadLocalityMap([]); // load empty map with just rentings
+            fetchExplorerData();
+        });
+
+
+    </script>
+</body>
+
+</html>
