@@ -43,7 +43,7 @@ for loc in localities:
     search_name = ALIAS_MAP.get(loc, loc)
     query = f"{search_name}, Bhopal"
     url = "https://nominatim.openstreetmap.org/search?q=" + urllib.parse.quote(query) + "&format=json&polygon_geojson=1&limit=5"
-    req = urllib.request.Request(url, headers={"User-Agent": "MP-Life-Bot/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Life-Cost-Bot/1.0"})
     
     try:
         import ssl

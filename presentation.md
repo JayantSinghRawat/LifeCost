@@ -1,7 +1,7 @@
-# MP-Life Project Presentation
+# Life Cost Project Presentation
 
 ## Slide 1: Title Page
-**Project Title:** MP-Life: AI-Powered Cost of Living Analytics for Madhya Pradesh
+**Project Title:** Life Cost: AI-Powered Cost of Living Analytics for Madhya Pradesh
 **Team Members:** 
 - [Student Name 1] (Enrollment No. / ID)
 - [Student Name 2] (Enrollment No. / ID)
@@ -27,16 +27,16 @@
 - Global cost of living calculators (e.g., Numbeo, Expatistan) rely on user-reported, highly generalized data.
 - Real estate portals (e.g., MagicBricks, 99acres) only provide standalone property listings without context of grocery or transport costs.
 
-**Difference / MP-Life Advantage:**
+**Difference / Life Cost Advantage:**
 - **Predictive AI over Static Data:** Uses 5 core Machine Learning algorithms instead of simple database lookups.
 - **Holistic View:** Combines housing, daily groceries, metro fares, and macroeconomic indicators (CPI) into a single Cost-of-Living Composite Index.
 - **Hyper-Localized:** specifically engineered for Madhya Pradesh / Bhopal using localized datasets.
 
-### Comparison: MP-Life vs. Traditional Platforms
+### Comparison: Life Cost vs. Traditional Platforms
 
 **Comparison Table:**
 
-| Feature | Traditional Platforms (e.g., Numbeo, MagicBricks) | MP-Life |
+| Feature | Traditional Platforms (e.g., Numbeo, MagicBricks) | Life Cost |
 | :--- | :--- | :--- |
 | **Data Source** | User-reported (often outdated) or Static Listings | Real-time, localized scraped data (Blinkit, OLX, Govt CPI) |
 | **Methodology** | Simple Database Lookups & Averages | 5 Core Predictive Machine Learning Models |
@@ -52,7 +52,7 @@ mindmap
       Static Property Listings
       User-Reported Generic Data
       Manual Budgeting
-    MP-Life Features
+    Life Cost Features
       Locality Recommendation Engine
       Machine Learning Predictions
       Inflation Trend Forecasting

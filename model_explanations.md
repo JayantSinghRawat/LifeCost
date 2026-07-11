@@ -1,6 +1,6 @@
-# MP-Life Machine Learning Models Overview
+# Life Cost Machine Learning Models Overview
 
-This document provides a comprehensive explanation of the Machine Learning architecture behind the MP-Life project. Use this guide to structure your presentation, particularly when explaining **how each model works**, **what metrics/tests were used to evaluate them**, and **what those metrics actually tell us**.
+This document provides a comprehensive explanation of the Machine Learning architecture behind the Life Cost project. Use this guide to structure your presentation, particularly when explaining **how each model works**, **what metrics/tests were used to evaluate them**, and **what those metrics actually tell us**.
 
 ---
 

@@ -5,7 +5,7 @@ import json
 def overpass_query(query_str):
     url = "https://overpass-api.de/api/interpreter"
     data = query_str.encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers={"User-Agent": "MP-Life-Bot/1.0", "Content-Type": "application/x-www-form-urlencoded"})
+    req = urllib.request.Request(url, data=data, headers={"User-Agent": "Life-Cost-Bot/1.0", "Content-Type": "application/x-www-form-urlencoded"})
     try:
         import ssl
         ctx = ssl.create_default_context()

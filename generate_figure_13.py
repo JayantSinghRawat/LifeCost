@@ -53,6 +53,6 @@ plt.legend(loc='upper left', fontsize=11)
 plt.ylim(0, 360) # Give semantic headroom for text
 plt.tight_layout()
 
-output_path = '/Users/jayant/Desktop/MP-Life/artifacts/Figure_13_API_Response_Time.png'
+output_path = '/Users/jayant/Desktop/LifeCost/artifacts/Figure_13_API_Response_Time.png'
 plt.savefig(output_path, dpi=300, bbox_inches='tight')
 print(f"Figure saved to {output_path}")

@@ -42,7 +42,7 @@ plt.grid(True, linestyle="--", alpha=0.7)
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
 plt.gcf().autofmt_xdate()
 
-output_path = '/Users/jayant/Desktop/MP-Life/artifacts/Figure_10_CPI_Forecast.png'
+output_path = '/Users/jayant/Desktop/LifeCost/artifacts/Figure_10_CPI_Forecast.png'
 plt.tight_layout()
 plt.savefig(output_path, dpi=300, bbox_inches='tight')
 print(f"Figure saved to {output_path}")

@@ -4,7 +4,7 @@ import json
 
 def search(q):
     url = "https://nominatim.openstreetmap.org/search?q=" + urllib.parse.quote(q) + "&format=json&polygon_geojson=1&limit=10"
-    req = urllib.request.Request(url, headers={"User-Agent": "MP-Life-Bot/1.1"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Life-Cost-Bot/1.1"})
     try:
         import ssl
         ctx = ssl.create_default_context()

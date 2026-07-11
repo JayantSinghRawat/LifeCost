@@ -1,9 +1,9 @@
-# 🌟 MP-Life: AI-Powered Cost of Living Analytics for Madhya Pradesh
+# 🌟 Life Cost: AI-Powered Cost of Living Analytics for Madhya Pradesh
 
-Welcome to **MP-Life**, an intelligent, AI-driven platform that provides deep insights into the cost of living across Madhya Pradesh (with a strong focus on Bhopal). This document is designed to **teach you everything about the project**, including its architecture, the embedded Machine Learning algorithms, and how the data is processed.
+Welcome to **Life Cost**, an intelligent, AI-driven platform that provides deep insights into the cost of living across Madhya Pradesh (with a strong focus on Bhopal). This document is designed to **teach you everything about the project**, including its architecture, the embedded Machine Learning algorithms, and how the data is processed.
 
 ## 🚀 What is this project?
-MP-Life is a full-stack platform (FastAPI backend + HTML/JS/CSS frontend) that answers crucial questions for anyone planning to move or stay in Madhya Pradesh:
+Life Cost is a full-stack platform (FastAPI backend + HTML/JS/CSS frontend) that answers crucial questions for anyone planning to move or stay in Madhya Pradesh:
 - What will be my rent?
 - How much will groceries cost?
 - What are the metro fares?

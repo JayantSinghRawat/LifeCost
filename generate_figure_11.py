@@ -60,6 +60,6 @@ plt.xlabel('Predicted Fare Class', fontsize=14, labelpad=10)
 plt.ylabel('Actual Fare Class', fontsize=14, labelpad=10)
 
 plt.tight_layout()
-output_path = '/Users/jayant/Desktop/MP-Life/artifacts/Figure_11_Metro_Confusion_Matrix.png'
+output_path = '/Users/jayant/Desktop/LifeCost/artifacts/Figure_11_Metro_Confusion_Matrix.png'
 plt.savefig(output_path, dpi=300, bbox_inches='tight')
 print(f"Figure saved to {output_path}")

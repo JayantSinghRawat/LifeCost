@@ -86,6 +86,6 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., title="Heatmap Leg
 plt.grid(True, linestyle="--", alpha=0.4)
 plt.tight_layout()
 
-output_path = '/Users/jayant/Desktop/MP-Life/artifacts/Figure_12_Locality_Heatmap.png'
+output_path = '/Users/jayant/Desktop/LifeCost/artifacts/Figure_12_Locality_Heatmap.png'
 plt.savefig(output_path, dpi=300, bbox_inches='tight')
 print(f"Figure saved to {output_path}")

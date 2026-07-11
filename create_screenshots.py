@@ -12,7 +12,7 @@ async def capture_screenshots():
         )
         page = await browser.new_page(viewport={"width": 1400, "height": 1000})
 
-        url = 'file:///Users/jayant/Desktop/MP-Life/frontend/index.html'
+        url = 'file:///Users/jayant/Desktop/LifeCost/frontend/index.html'
         print(f"Loading {url}...")
         
         await page.goto(url, wait_until='networkidle')
@@ -35,7 +35,7 @@ async def capture_screenshots():
         await page.wait_for_timeout(3000)
 
         # 7.1 Landing Page
-        await page.screenshot(path='/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_1_Landing_Page.png', full_page=False)
+        await page.screenshot(path='/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_1_Landing_Page.png', full_page=False)
         print("Captured 7.1")
 
         async def snap(selector, filename, fallback_scroll):
@@ -48,10 +48,10 @@ async def capture_screenshots():
                 await page.evaluate(f"window.scrollTo(0, {fallback_scroll})")
                 await page.screenshot(path=filename)
 
-        await snap('.predict-panel', '/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_2_Rent_Prediction.png', 500)
+        await snap('.predict-panel', '/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_2_Rent_Prediction.png', 500)
         print("Captured 7.2")
 
-        await snap('.chart-card', '/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_3_CPI_Chart.png', 1000)
+        await snap('.chart-card', '/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_3_CPI_Chart.png', 1000)
         print("Captured 7.3")
 
         el = await page.query_selector('.leaflet-container')
@@ -59,16 +59,16 @@ async def capture_screenshots():
         if el:
             await el.scroll_into_view_if_needed()
             await page.wait_for_timeout(1500)
-            await el.screenshot(path='/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_4_Locality_Map.png')
+            await el.screenshot(path='/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_4_Locality_Map.png')
         else:
             await page.evaluate("window.scrollTo(0, 1500)")
-            await page.screenshot(path='/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_4_Locality_Map.png')
+            await page.screenshot(path='/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_4_Locality_Map.png')
         print("Captured 7.4")
 
-        await snap('.metro-calc', '/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_5_Metro_Fare.png', 2000)
+        await snap('.metro-calc', '/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_5_Metro_Fare.png', 2000)
         print("Captured 7.5")
 
-        await snap('.gauge-section', '/Users/jayant/Desktop/MP-Life/artifacts/Screenshot_7_6_Cost_Of_Living.png', 2500)
+        await snap('.gauge-section', '/Users/jayant/Desktop/LifeCost/artifacts/Screenshot_7_6_Cost_Of_Living.png', 2500)
         print("Captured 7.6")
 
         await browser.close()

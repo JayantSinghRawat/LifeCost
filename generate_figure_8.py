@@ -66,6 +66,6 @@ from matplotlib.ticker import PercentFormatter
 ax.xaxis.set_major_formatter(PercentFormatter(1.0))
 
 plt.tight_layout()
-output_path = '/Users/jayant/Desktop/MP-Life/artifacts/Figure_8_Feature_Importance.png'
+output_path = '/Users/jayant/Desktop/LifeCost/artifacts/Figure_8_Feature_Importance.png'
 plt.savefig(output_path, dpi=300, bbox_inches='tight')
 print(f"Figure saved to {output_path}")
