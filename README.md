@@ -80,38 +80,75 @@ This project isn't just a simple database lookup. It uses predictive modeling. H
 ---
 
 ## 🛠️ Tech Stack & Architecture
-*   **Backend Framework:** `FastAPI` (Python). Chosen for its incredible speed, automatic Swagger UI documentation, and async capabilities.
-*   **Machine Learning:** `scikit-learn` (for Trees and Regression), `statsmodels` (for ARIMA), `numpy`, `pandas`.
-*   **Data Persistence:** Model artefacts are saved as `.joblib` files. `joblib` is optimized for python objects that carry large Numpy arrays internally (faster than `pickle`).
-*   **Frontend:** Vanilla HTML, CSS, JavaScript, `Chart.js` for plotting inflation graphs, and `Leaflet.js` for rendering interactive maps.
-*   **Containerization:** Fully Dockerized using `Dockerfile.api`, `Dockerfile.frontend`, and `docker-compose.yml`.
+
+The application has been upgraded with a secondary, high-performance Express/NodeJS rendering backend alongside the predictive Python ML backend:
+
+### 1. ⚙️ Express & EJS Rendering Web App
+*   **Web Framework:** `Express.js` (Node.js) serving server-rendered dynamic templates.
+*   **Template Engine:** `EJS` with `ejs-mate` layout layout system for modular blocks.
+*   **Input Validation:** `Joi` schema validation protecting all search and input fields.
+*   **Database Integration:** `mysql2/promise` with automatic lazy-loading mock fallback. If MySQL is unreachable, it seamlessly parses, normalizes, and filters the raw scraped JSON data files dynamically.
+
+### 2. 🤖 Python ML & Predictive API
+*   **Predictive Backend:** `FastAPI` (Python) serving REST endpoints for models.
+*   **Machine Learning:** `scikit-learn` (Trees & Regression), `statsmodels` (ARIMA), `numpy`, `pandas`.
+*   **Data Persistence:** Trained models serialized via `.joblib` binary formats.
+
+### 3. 🌐 Frontend & Devops
+*   **Assets & Visuals:** `Chart.js` for inflation charts, `Leaflet.js` for interactive geographical maps.
+*   **Containerization:** Docker multi-container setups using `Dockerfile.api`, `Dockerfile.frontend`, and `docker-compose.yml`.
 
 ---
 
 ## 💻 How to Run the Project Locally
 
-### Option 1: Using Python
+### Option 1: Express + EJS Web App (Node.js & MySQL)
 1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Setup Environment Variables:** Create a `.env` file in the root directory:
+   ```env
+   PORT=3000
+   DB_HOST=127.0.0.1
+   DB_USER=root
+   DB_PASSWORD=yourpassword
+   DB_DATABASE=lifecost
+   ```
+3. **Seed the Database:** Extract, parse, and import all the scraped listings (Rent, Metro fares, Blinkit groceries) into MySQL:
+   ```bash
+   npm run seed
+   ```
+   *Note: If no MySQL server is running, the application will automatically fall back to serving mock queries loaded from local JSON data files.*
+4. **Start the App:**
+   ```bash
+   npm start
+   ```
+   Navigate to `http://localhost:3000` to interact with the Dashboard, Rent Search, Metro Route Fare Classifier, and Locality Recommendation Matcher.
+
+### Option 2: Python FastAPI & ML Services
+1. **Install Python Dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-2. **Train the ML Models:** You must run this first so that the `.joblib` files are created!
+2. **Train the ML Models:** Generate the serialised model files:
    ```bash
    python ml/train_all.py
    ```
-3. **Start the API Server:**
+3. **Start the FastAPI Server:**
    ```bash
    uvicorn api.main:app --reload --port 8000
    ```
-4. **Open Frontend:**
-   Just double-click `frontend/index.html` in your browser!
+4. **Open Frontend Client:**
+   Open `frontend/index.html` in your browser.
 
-### Option 2: Using Docker
-(Simply start both the API and an Nginx server serving the frontend)
+### Option 3: Full Docker Orchestration
+Build and spin up the multi-container configuration:
 ```bash
 docker-compose up --build
 ```
-Then navigate to `http://localhost:80` for the frontend and `http://localhost:8000/docs` for the API documentation.
+*   Frontend: `http://localhost:80`
+*   API Docs: `http://localhost:8000/docs`
 
 ---
 
@@ -119,6 +156,7 @@ Then navigate to `http://localhost:80` for the frontend and `http://localhost:80
 *   **Ensemble Models (`RandomForest`)** are excellent for tabular data with hidden nonlinear relationships (like Rent).
 *   **Time Series (`ARIMA`)** shines when predicting future trends based purely on historical sequences (like Inflation).
 *   **Decision Trees** are unbeatable when you need to extract readable rules from a dataset (like Metro Fares).
-*   **Scoring Algorithms** (Locality Recommender) don't always need AI; a clever, mathematically sound, multi-criteria weighted formula is often the perfect engineering solution.
+*   **Database Fallbacks** allow robust frontend operations by seamlessly switching from database schemas to client-side json processing logic when connections drop.
 
 Happy Coding and Exploring Madhya Pradesh! 🌟
+
