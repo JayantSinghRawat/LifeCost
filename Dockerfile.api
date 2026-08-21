@@ -1,24 +1,22 @@
-# ── API backend ──────────────────────────────────────────────────────────────
-FROM python:3.11-slim AS api
+# Node.js Express Web App Dockerfile
+FROM node:18-alpine
 
 WORKDIR /app
 
-# System deps (needed for statsmodels / numpy compilation)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc g++ && rm -rf /var/lib/apt/lists/*
+# Copy package config and install dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
 
-# Install Python deps first (layer-cached unless requirements change)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy source
-COPY ml/   ./ml/
-COPY api/  ./api/
+# Copy application source files
+COPY app.js ./
+COPY config/ ./config/
+COPY database/ ./database/
+COPY middleware/ ./middleware/
+COPY views/ ./views/
+COPY public/ ./public/
 COPY Scrapping_Manual/ ./Scrapping_Manual/
 
-# Pre-train models at build time so the container is warm on first request
-RUN python3 ml/train_all.py
+EXPOSE 3000
 
-# Run uvicorn
-EXPOSE 8000
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+# Set start command
+CMD ["node", "app.js"]

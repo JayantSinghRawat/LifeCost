@@ -1,0 +1,84 @@
+<% layout('layouts/boilerplate') -%>
+
+<div style="margin-bottom: 40px; text-align: center;">
+  <h1 style="font-family: var(--font-head); font-size: 2.8rem; font-weight: 700; margin-bottom: 12px; background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+    Madhya Pradesh Cost of Living Analytics
+  </h1>
+  <p style="color: var(--text-sec); font-size: 1.2rem; max-width: 700px; margin: 0 auto;">
+    Analyze and predict the cost of living across rent, metro transit fares, groceries, and locality preferences.
+  </p>
+</div>
+
+<div class="grid grid-3">
+  <!-- Rent Card -->
+  <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="font-size: 2.5rem; margin-bottom: 16px;">🏠</div>
+      <h2 class="card-title">Rent Estimator</h2>
+      <p style="color: var(--text-sec); margin-bottom: 20px;">
+        Predict residential rent rates based on area size (sqft), room configuration (BHK), city locations, and bathroom availability.
+      </p>
+    </div>
+    <a href="/rent" class="btn btn-primary" style="align-self: flex-start;">Estimate Rent</a>
+  </div>
+
+  <!-- Metro Fares Card -->
+  <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="font-size: 2.5rem; margin-bottom: 16px;">🚇</div>
+      <h2 class="card-title">Metro Fare Finder</h2>
+      <p style="color: var(--text-sec); margin-bottom: 20px;">
+        Look up metro routes, calculate precise fares, distances, number of stops, and estimated travel times across stations.
+      </p>
+    </div>
+    <a href="/metro" class="btn btn-primary" style="align-self: flex-start;">Check Fares</a>
+  </div>
+
+  <!-- Localities Card -->
+  <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="font-size: 2.5rem; margin-bottom: 16px;">🗺️</div>
+      <h2 class="card-title">Locality Recommender</h2>
+      <p style="color: var(--text-sec); margin-bottom: 20px;">
+        Find the optimal neighborhood to reside in based on budget limits, salary matches, and workplace proximity.
+      </p>
+    </div>
+    <a href="/locality" class="btn btn-primary" style="align-self: flex-start;">Find Locality</a>
+  </div>
+</div>
+
+<div class="card" style="margin-top: 40px;">
+  <h2 class="card-title">📊 Groceries Price Benchmark (Average Bhopal Basket)</h2>
+  <p style="color: var(--text-sec); margin-bottom: 20px;">
+    Historical quick-commerce item list from top local categories (groceries, fruits, vegetables) and normalized metrics.
+  </p>
+  
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+      <thead>
+        <tr style="border-bottom: 2px solid var(--border); color: var(--text-sec);">
+          <th style="padding: 12px 8px;">Category</th>
+          <th style="padding: 12px 8px;">Item Name</th>
+          <th style="padding: 12px 8px;">Standard Quantity</th>
+          <th style="padding: 12px 8px;">Price (INR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (typeof groceries !== 'undefined' && groceries.length > 0) { %>
+          <% groceries.slice(0, 10).forEach(function(item) { %>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px 8px; font-weight: 500;"><%= item.category %></td>
+              <td style="padding: 12px 8px; color: var(--text-sec);"><%= item.name %></td>
+              <td style="padding: 12px 8px; color: var(--text-muted);"><%= item.quantity_raw || '100g' %></td>
+              <td style="padding: 12px 8px; font-weight: 600; color: var(--green);">₹<%= item.price %></td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="4" style="padding: 20px; text-align: center; color: var(--text-muted);">No grocery items loaded. Seed the database to view.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

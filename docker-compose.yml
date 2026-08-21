@@ -1,37 +1,41 @@
 services:
-  # ── FastAPI ML backend ────────────────────────────────────────────────────
-  api:
+  # MySQL Database Service
+  db:
+    image: mysql:8.0
+    container_name: lifecost_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "lifecost"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Express Web Service
+  web:
     build:
       context: .
       dockerfile: Dockerfile.api
-    container_name: mp_life_api
+    container_name: lifecost_web
     restart: unless-stopped
     ports:
-      - "8000:8000" # Direct API access (also available through frontend proxy)
-    volumes:
-      - model_cache:/app/ml/models # Persist trained models across restarts
+      - "3000:3000"
     environment:
-      - PYTHONUNBUFFERED=1
-    healthcheck:
-      test: [ "CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" ]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-
-  # ── nginx + frontend SPA ────────────────────────────────────────────────────
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    container_name: mp_life_frontend
-    restart: unless-stopped
-    ports:
-      - "3000:80"
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=
+      - DB_DATABASE=lifecost
+      - PORT=3000
     depends_on:
-      api:
+      db:
         condition: service_healthy
 
 volumes:
-  model_cache:
+  mysql_data:
     driver: local

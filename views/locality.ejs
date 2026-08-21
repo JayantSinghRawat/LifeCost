@@ -1,0 +1,100 @@
+<% layout('layouts/boilerplate') -%>
+
+<div style="margin-bottom: 30px;">
+  <h1 style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;">🗺️ Locality & Budget Matcher</h1>
+  <p style="color: var(--text-sec);">Calculate neighborhood affordability based on monthly salary and preferences.</p>
+</div>
+
+<div class="grid grid-3" style="grid-template-columns: 1fr 2fr; align-items: start;">
+  <!-- Left Side: Profile inputs -->
+  <div class="card">
+    <h2 class="card-title" style="font-size: 1.25rem;">Your Profile</h2>
+    <form action="/locality" method="GET">
+      <div class="form-group">
+        <label class="form-label" for="salary">Monthly Net Salary (₹)</label>
+        <input type="number" id="salary" name="salary" class="form-control" placeholder="e.g. 50000" min="5000" value="<%= typeof query !== 'undefined' ? query.salary : '' %>" required>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Recommended housing spend: 25% of salary.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="workspace">Workplace Area / Locality</label>
+        <input type="text" id="workspace" name="workspace" class="form-control" placeholder="e.g. MP Nagar, Arera Colony" value="<%= typeof query !== 'undefined' ? query.workspace : '' %>" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Find Matching Areas</button>
+    </form>
+  </div>
+
+  <!-- Right Side: Match Results -->
+  <div>
+    <% if (typeof matches !== 'undefined') { %>
+      <% 
+        const idealRent = Math.round(query.salary * 0.25);
+      %>
+      <div class="card" style="background: var(--bg-card-hover); border-color: var(--accent); margin-bottom: 24px;">
+        <h2 class="card-title" style="color: var(--accent); font-size: 1.3rem;">Budget Target Summary</h2>
+        <div class="grid grid-2" style="margin-top: 15px;">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Ideal Monthly Rent Cap (25%)</span>
+            <h3 style="font-size: 1.6rem; color: var(--accent); margin-top: 4px;">₹<%= idealRent.toLocaleString() %></h3>
+          </div>
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Workplace Target</span>
+            <h3 style="font-size: 1.4rem; color: var(--text-primary); margin-top: 6px;"><%= query.workspace %></h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" style="font-size: 1.25rem;">Recommended Localities</h2>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border); color: var(--text-sec);">
+                <th style="padding: 12px 8px;">Locality</th>
+                <th style="padding: 12px 8px;">Average Rent</th>
+                <th style="padding: 12px 8px;">Affordability Status</th>
+                <th style="padding: 12px 8px;">Workspace Distance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (matches.length > 0) { %>
+                <% matches.forEach(function(item) { %>
+                  <% 
+                    const isAffordable = item.avgRent <= idealRent; 
+                  %>
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px; font-weight: 600;"><%= item.locality %></td>
+                    <td style="padding: 12px 8px; font-weight: 700; color: var(--accent);">₹<%= item.avgRent.toLocaleString() %>/mo</td>
+                    <td style="padding: 12px 8px;">
+                      <% if (isAffordable) { %>
+                        <span style="background: rgba(5, 150, 105, 0.1); color: var(--green); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">AFFORDABLE</span>
+                      <% } else { %>
+                        <span style="background: rgba(220, 38, 38, 0.1); color: var(--red); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">STRETCH BUDGET</span>
+                      <% } %>
+                    </td>
+                    <td style="padding: 12px 8px; color: var(--text-sec);">
+                      <%= item.isNearby ? 'Nearby workplace' : 'Transit required' %>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" style="padding: 20px; text-align: center; color: var(--text-muted);">No recommendations found. Try adjusting target criteria.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="card" style="text-align: center; padding: 40px;">
+        <span style="font-size: 3rem;">🔍</span>
+        <h2 class="card-title" style="margin-top: 10px;">Analyze Affordability</h2>
+        <p style="color: var(--text-sec); max-width: 400px; margin: 10px auto 0;">
+          Input your net salary and workplace locality on the left to identify matching areas within your rent budget.
+        </p>
+      </div>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="card" style="max-width: 600px; margin: 40px auto; text-align: center; border-color: var(--red);">
+  <h1 class="card-title" style="color: var(--red); font-size: 2rem;">Error <%= statusCode %></h1>
+  <p style="margin: 20px 0; color: var(--text-sec); font-size: 1.1rem;"><%= message %></p>
+  <a href="/" class="btn btn-primary">Return to Dashboard</a>
+</div>

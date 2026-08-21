@@ -1,0 +1,109 @@
+<% layout('layouts/boilerplate') -%>
+
+<div style="margin-bottom: 30px;">
+  <h1 style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;">🏠 Rent Price Estimator & Lookup</h1>
+  <p style="color: var(--text-sec);">Search rent prices in various localities across Madhya Pradesh cities.</p>
+</div>
+
+<div class="grid grid-3" style="grid-template-columns: 1fr 2fr; align-items: start;">
+  <!-- Left Side: Search Form -->
+  <div class="card">
+    <h2 class="card-title" style="font-size: 1.25rem;">Search / Filter</h2>
+    <form action="/rent" method="GET">
+      <div class="form-group">
+        <label class="form-label" for="locality">Locality Name</label>
+        <input type="text" id="locality" name="locality" class="form-control" placeholder="e.g. Arera Colony, Kolar Road" value="<%= typeof query !== 'undefined' ? query.locality : '' %>" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="bhk">Min BHK Preference</label>
+        <select id="bhk" name="bhk" class="form-control">
+          <option value="">Any BHK</option>
+          <option value="1" <%= typeof query !== 'undefined' && query.bhk === '1' ? 'selected' : '' %>>1 BHK</option>
+          <option value="2" <%= typeof query !== 'undefined' && query.bhk === '2' ? 'selected' : '' %>>2 BHK</option>
+          <option value="3" <%= typeof query !== 'undefined' && query.bhk === '3' ? 'selected' : '' %>>3 BHK</option>
+          <option value="4" <%= typeof query !== 'undefined' && query.bhk === '4' ? 'selected' : '' %>>4 BHK</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Search Listings</button>
+    </form>
+  </div>
+
+  <!-- Right Side: Results -->
+  <div>
+    <% if (typeof listings !== 'undefined') { %>
+      <div class="card" style="background: var(--bg-card-hover); border-color: var(--accent);">
+        <h2 class="card-title" style="color: var(--accent); font-size: 1.3rem; margin-bottom: 8px;">
+          Analytics for Locality: <%= query.locality.toUpperCase() %>
+        </h2>
+        <% if (listings.length > 0) { %>
+          <% 
+            const rents = listings.map(l => l.rent);
+            const avgRent = Math.round(rents.reduce((a, b) => a + b, 0) / rents.length);
+            const minRent = Math.min(...rents);
+            const maxRent = Math.max(...rents);
+          %>
+          <div class="grid grid-3" style="margin-top: 15px; text-align: center;">
+            <div style="border-right: 1px solid var(--border); padding: 10px;">
+              <span style="font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Average Rent</span>
+              <h3 style="font-size: 1.5rem; color: var(--accent); margin-top: 4px;">₹<%= avgRent.toLocaleString() %></h3>
+            </div>
+            <div style="border-right: 1px solid var(--border); padding: 10px;">
+              <span style="font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Range (Min - Max)</span>
+              <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-top: 8px;">₹<%= minRent.toLocaleString() %> - ₹<%= maxRent.toLocaleString() %></h3>
+            </div>
+            <div style="padding: 10px;">
+              <span style="font-size: 0.85rem; color: var(--text-sec); font-weight: 600;">Total Listings</span>
+              <h3 style="font-size: 1.5rem; color: var(--green); margin-top: 4px;"><%= listings.length %></h3>
+            </div>
+          </div>
+        <% } else { %>
+          <p style="color: var(--text-sec);">No active listings found. Showing database defaults or mock trends.</p>
+        <% } %>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" style="font-size: 1.25rem;">Active Real Estate Listings</h2>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border); color: var(--text-sec);">
+                <th style="padding: 12px 8px;">Locality</th>
+                <th style="padding: 12px 8px;">BHK</th>
+                <th style="padding: 12px 8px;">Size (Sqft)</th>
+                <th style="padding: 12px 8px;">City</th>
+                <th style="padding: 12px 8px;">Rent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (listings.length > 0) { %>
+                <% listings.forEach(function(item) { %>
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px; font-weight: 600;"><%= item.locality %></td>
+                    <td style="padding: 12px 8px; color: var(--text-sec);"><%= item.bhk %> BHK</td>
+                    <td style="padding: 12px 8px; color: var(--text-muted);"><%= item.sqft %> sqft</td>
+                    <td style="padding: 12px 8px; color: var(--text-sec);"><%= item.city %></td>
+                    <td style="padding: 12px 8px; font-weight: 700; color: var(--accent);">₹<%= item.rent.toLocaleString() %></td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">No records match this search. Try searching "KOLAR ROAD" or "ARERA COLONY".</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="card" style="text-align: center; padding: 40px;">
+        <span style="font-size: 3rem;">🔍</span>
+        <h2 class="card-title" style="margin-top: 10px;">Find Rental Listings</h2>
+        <p style="color: var(--text-sec); max-width: 400px; margin: 10px auto 0;">
+          Enter a locality (like "Kolar Road" or "Arera Colony") on the left to query matching rent rates and statistics.
+        </p>
+      </div>
+    <% } %>
+  </div>
+</div>

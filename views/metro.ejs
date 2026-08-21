@@ -1,0 +1,68 @@
+<% layout('layouts/boilerplate') -%>
+
+<div style="margin-bottom: 30px;">
+  <h1 style="font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;">🚇 Metro Route & Fare Calculator</h1>
+  <p style="color: var(--text-sec);">Calculate transit fare rates and travel schedules for metro routes.</p>
+</div>
+
+<div class="grid grid-3" style="grid-template-columns: 1fr 2fr; align-items: start;">
+  <!-- Left Column: Search Form -->
+  <div class="card">
+    <h2 class="card-title" style="font-size: 1.25rem;">Station Lookup</h2>
+    <form action="/metro" method="GET">
+      <div class="form-group">
+        <label class="form-label" for="station">Search Station / Route</label>
+        <input type="text" id="station" name="station" class="form-control" placeholder="e.g. AIIMS, Subhash Nagar, DRM Office" value="<%= typeof query !== 'undefined' ? query.station : '' %>" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Find Routes</button>
+    </form>
+  </div>
+
+  <!-- Right Column: Results -->
+  <div>
+    <% if (typeof routes !== 'undefined') { %>
+      <div class="card">
+        <h2 class="card-title" style="font-size: 1.25rem;">Transit Routes matching "<%= query.station %>"</h2>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border); color: var(--text-sec);">
+                <th style="padding: 12px 8px;">Route</th>
+                <th style="padding: 12px 8px;">Distance</th>
+                <th style="padding: 12px 8px;">Stops</th>
+                <th style="padding: 12px 8px;">Est. Time</th>
+                <th style="padding: 12px 8px;">Est. Fare</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (routes.length > 0) { %>
+                <% routes.forEach(function(item) { %>
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px 8px; font-weight: 600;"><%= item.route_name %></td>
+                    <td style="padding: 12px 8px; color: var(--text-sec);"><%= item.distance_km %> km</td>
+                    <td style="padding: 12px 8px; color: var(--text-muted);"><%= item.num_stops %> stops</td>
+                    <td style="padding: 12px 8px; color: var(--text-sec);"><%= item.travel_min %> mins</td>
+                    <td style="padding: 12px 8px; font-weight: 700; color: var(--green);">₹<%= item.fare_inr %></td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="5" style="padding: 20px; text-align: center; color: var(--text-muted);">No routes match this search. Try searching "AIIMS".</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="card" style="text-align: center; padding: 40px;">
+        <span style="font-size: 3rem;">🚉</span>
+        <h2 class="card-title" style="margin-top: 10px;">Find Transit Connections</h2>
+        <p style="color: var(--text-sec); max-width: 400px; margin: 10px auto 0;">
+          Enter a station name (like "AIIMS" or "DRM Office") on the left to calculate distances and fares.
+        </p>
+      </div>
+    <% } %>
+  </div>
+</div>

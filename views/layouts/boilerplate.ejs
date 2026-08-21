@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'MP Life Cost — Cost of Living Analytics' %></title>
+  
+  <!-- Font integration -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* CSS Styling system */
+    :root {
+      --bg-base: #f4f6fb;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fcfdfe;
+      --bg-input: #f0f3fa;
+      --border: rgba(59, 130, 246, 0.12);
+      --border-hover: rgba(59, 130, 246, 0.3);
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --accent-grad: linear-gradient(135deg, #2563eb, #7c3aed);
+      --green: #059669;
+      --red: #dc2626;
+      --text-primary: #1a2233;
+      --text-sec: #4b5e7a;
+      --text-muted: #8fa3bf;
+      --shadow-card: 0 4px 20px rgba(59, 130, 246, 0.05), 0 1px 3px rgba(0, 0, 0, 0.04);
+      --radius: 12px;
+      --font-main: 'Inter', sans-serif;
+      --font-head: 'Space Grotesk', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent-grad);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      -webkit-text-fill-color: initial;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent);
+      background: rgba(37, 99, 235, 0.06);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    /* Footer */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    /* Shared forms/inputs */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-sec);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-input);
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .btn {
+      display: inline-block;
+      font-weight: 600;
+      text-align: center;
+      vertical-align: middle;
+      user-select: none;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-grad);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+
+    /* Grid layouts */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <div class="logo-icon">L</div>
+        Life Cost
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Dashboard</a>
+        <a href="/rent" class="nav-link">Rent Predictor</a>
+        <a href="/metro" class="nav-link">Metro Fares</a>
+        <a href="/locality" class="nav-link">Localities</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Life Cost Analytics. Cost of Living Insights for Bhopal & MP.</p>
+  </footer>
+</body>
+</html>

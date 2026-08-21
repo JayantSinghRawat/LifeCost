@@ -30,3 +30,7 @@ env/
 # Project-specific visual assets & outputs
 *.png
 *.html
+
+# Node modules
+node_modules/
+.env
